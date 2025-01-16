@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TimingManager : MonoBehaviour
 {
-    [System.NonSerialized]
     public List<GameObject> boxNoteList = new List<GameObject>();
 
     [SerializeField]
@@ -40,14 +39,18 @@ public class TimingManager : MonoBehaviour
             {
                 if (timingBoxs[x].x <= notePosX && notePosX <= timingBoxs[x].y)
                 {
+                    // 노트 제거
                     boxNoteList[i].GetComponent<Note>().HideNote();
-                    ef.NoteHitEffect();
                     boxNoteList.RemoveAt(i);
-                    Debug.Log("Hit" + x);
+
+                    // 이펙트 연출
+                    if (x < timingBoxs.Length - 1)
+                        ef.NoteHitEffect();
+                    ef.JudgeEffect(x);
                     return;
                 }
             }
         }
-        Debug.Log("Miss");
+        ef.JudgeEffect(timingBoxs.Length);
     }
 }

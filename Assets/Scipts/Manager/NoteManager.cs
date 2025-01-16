@@ -9,14 +9,14 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField]
     Transform noteAppear = null;
-    [SerializeField]
-    GameObject notePrefab = null;
 
     TimingManager tm;
+    EffectManager ef;
 
     private void Awake()
     {
         tm = GetComponent<TimingManager>();
+        ef = FindAnyObjectByType<EffectManager>();
     }
     // Update is called once per frame
     void Update()
@@ -25,8 +25,9 @@ public class NoteManager : MonoBehaviour
 
         if (currentTime >= 60d / bpm)
         {
-            GameObject notePre = Instantiate(notePrefab, noteAppear.position, Quaternion.identity);
-            notePre.transform.SetParent(this.transform);
+            GameObject notePre = ObjectPool.instance.noteQueue.Dequeue();
+            notePre.transform.position = noteAppear.position;
+            notePre.SetActive(true);
             tm.boxNoteList.Add(notePre);
             currentTime -= 60d / bpm;
         }
@@ -35,8 +36,13 @@ public class NoteManager : MonoBehaviour
     {
         if (collision.CompareTag("Note"))
         {
+            if (collision.GetComponent<Note>().GetNoteFlag())
+                ef.JudgeEffect(4);
+
             tm.boxNoteList.Remove(collision.gameObject);
-            Destroy(collision.gameObject);
+
+            ObjectPool.instance.noteQueue.Enqueue(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 }

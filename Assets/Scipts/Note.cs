@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Note : MonoBehaviour
 {
     public float noteSpeed = 400;
 
-    UnityEngine.UI.Image noteImage;
+    Image noteImage;
 
-    private void Start()
+    void OnEnable()
     {
-        noteImage = GetComponent<UnityEngine.UI.Image>();
+        if(noteImage == null)
+            noteImage = GetComponent<Image>();
+
+        noteImage.enabled = true;
     }
     // Update is called once per frame
     void Update()
@@ -20,5 +24,9 @@ public class Note : MonoBehaviour
     public void HideNote()
     {
         noteImage.enabled = false;
+    }
+    public bool GetNoteFlag()
+    {
+        return noteImage.enabled;
     }
 }
