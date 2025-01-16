@@ -13,9 +13,13 @@ public class TimingManager : MonoBehaviour
     RectTransform[] timingRect = null;
     Vector2[] timingBoxs = null;
 
+    EffectManager ef;
+
     // Start is called before the first frame update
     void Start()
     {
+        ef = FindAnyObjectByType<EffectManager>();
+
         timingBoxs = new Vector2[timingRect.Length];
 
         for(int i = 0; i <  timingRect.Length; i++)
@@ -37,6 +41,7 @@ public class TimingManager : MonoBehaviour
                 if (timingBoxs[x].x <= notePosX && notePosX <= timingBoxs[x].y)
                 {
                     boxNoteList[i].GetComponent<Note>().HideNote();
+                    ef.NoteHitEffect();
                     boxNoteList.RemoveAt(i);
                     Debug.Log("Hit" + x);
                     return;
