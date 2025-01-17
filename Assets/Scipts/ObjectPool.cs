@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Å¥¸¦ ÀÌ¿ëÇÑ È¿À²ÀûÀÎ ³ëÆ® »ı¼º
+// íë¥¼ ì´ìš©í•œ íš¨ìœ¨ì ì¸ ë…¸íŠ¸ ìƒì„±
 
 [System.Serializable]
 public class ObjectInfo 

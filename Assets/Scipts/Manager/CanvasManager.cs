@@ -5,9 +5,9 @@ public class CanvasManager : MonoBehaviour
 {
     public CanvasScaler canvasScaler;
 
-    // ±âÁØ È­¸é ºñÀ²°ú ÇØ»óµµ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-    public float baseAspectRatio = 16f / 9f; // ±âº» È­¸é ºñÀ² (16:9)
-    public Vector2 baseResolution = new Vector2(1920, 1080); // ±âÁØ ÇØ»óµµ
+    // ê¸°ì¤€ í™”ë©´ ë¹„ìœ¨ê³¼ í•´ìƒë„ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
+    public float baseAspectRatio = 16f / 9f; // ê¸°ë³¸ í™”ë©´ ë¹„ìœ¨ (16:9)
+    public Vector2 baseResolution = new Vector2(1920, 1080); // ê¸°ì¤€ í•´ìƒë„
 
     private void Start()
     {
@@ -21,25 +21,25 @@ public class CanvasManager : MonoBehaviour
 
     private void AdjustReferenceResolution()
     {
-        // ÇöÀç È­¸éÀÇ °¡·Î¼¼·Î ºñÀ²À» °è»êÇÕ´Ï´Ù.
+        // í˜„ì¬ í™”ë©´ì˜ ê°€ë¡œì„¸ë¡œ ë¹„ìœ¨ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
         float currentAspectRatio = (float)Screen.width / Screen.height;
 
-        // È­¸é ºñÀ²¿¡ µû¶ó referenceResolutionÀ» Á¶Á¤ÇÕ´Ï´Ù.
+        // í™”ë©´ ë¹„ìœ¨ì— ë”°ë¼ referenceResolutionì„ ì¡°ì •í•©ë‹ˆë‹¤.
         if (currentAspectRatio > baseAspectRatio)
         {
-            // È­¸éÀÌ ´õ ³ĞÀº °æ¿ì (°¡·Î ±âÁØÀ¸·Î ¸ÂÃã)
+            // í™”ë©´ì´ ë” ë„“ì€ ê²½ìš° (ê°€ë¡œ ê¸°ì¤€ìœ¼ë¡œ ë§ì¶¤)
             canvasScaler.referenceResolution = new Vector2(baseResolution.x, baseResolution.x / currentAspectRatio);
         }
         else
         {
-            // È­¸éÀÌ ´õ ³ôÀº °æ¿ì (¼¼·Î ±âÁØÀ¸·Î ¸ÂÃã)
+            // í™”ë©´ì´ ë” ë†’ì€ ê²½ìš° (ì„¸ë¡œ ê¸°ì¤€ìœ¼ë¡œ ë§ì¶¤)
             canvasScaler.referenceResolution = new Vector2(baseResolution.y * currentAspectRatio, baseResolution.y);
         }
     }
 
     private void Update()
     {
-        // È­¸é Å©±â°¡ º¯°æµÇ¾ú´ÂÁö °¨ÁöÇÏ°í ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+        // í™”ë©´ í¬ê¸°ê°€ ë³€ê²½ë˜ì—ˆëŠ”ì§€ ê°ì§€í•˜ê³  ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
         AdjustReferenceResolution();
     }
 }
