@@ -31,17 +31,23 @@ public class ObjectPool : MonoBehaviour
     Queue<GameObject> InsertQueue(ObjectInfo p_objectInfo)
     {
         Queue<GameObject> t_queue = new Queue<GameObject>();
-        for(int i = 0; i<p_objectInfo.count; i++)
+        for (int i = 0; i < p_objectInfo.count; i++)
         {
             GameObject t_clone = Instantiate(p_objectInfo.CreatePrefab, transform.position, Quaternion.identity);
             t_clone.SetActive(false);
+
+            // 스케일 초기화
+            t_clone.transform.localScale = Vector3.one;
+
+            // 부모 설정
             if (p_objectInfo.PoolParent != null)
-                t_clone.transform.SetParent(p_objectInfo.PoolParent);
+                t_clone.transform.SetParent(p_objectInfo.PoolParent, false);
             else
-                t_clone.transform.SetParent(this.transform);
+                t_clone.transform.SetParent(this.transform, false);
 
             t_queue.Enqueue(t_clone);
         }
         return t_queue;
     }
+
 }

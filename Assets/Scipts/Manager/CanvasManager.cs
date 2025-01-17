@@ -16,6 +16,7 @@ public class CanvasManager : MonoBehaviour
             canvasScaler = GetComponent<CanvasScaler>();
         }
 
+        // 게임 시작 시 한 번만 비율 조정
         AdjustReferenceResolution();
     }
 
@@ -35,11 +36,5 @@ public class CanvasManager : MonoBehaviour
             // 화면이 더 높은 경우 (세로 기준으로 맞춤)
             canvasScaler.referenceResolution = new Vector2(baseResolution.y * currentAspectRatio, baseResolution.y);
         }
-    }
-
-    private void Update()
-    {
-        // 화면 크기가 변경되었는지 감지하고 업데이트합니다.
-        AdjustReferenceResolution();
     }
 }

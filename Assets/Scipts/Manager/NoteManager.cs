@@ -12,11 +12,13 @@ public class NoteManager : MonoBehaviour
 
     TimingManager tm;
     EffectManager ef;
+    ScoreManager sm;
 
     private void Awake()
     {
         tm = GetComponent<TimingManager>();
         ef = FindAnyObjectByType<EffectManager>();
+        sm = FindAnyObjectByType<ScoreManager>();
     }
     // Update is called once per frame
     void Update()
@@ -37,7 +39,10 @@ public class NoteManager : MonoBehaviour
         if (collision.CompareTag("Note"))
         {
             if (collision.GetComponent<Note>().GetNoteFlag())
+            {
                 ef.JudgeEffect(4);
+                sm.ResetCombo();
+            }
 
             tm.boxNoteList.Remove(collision.gameObject);
 

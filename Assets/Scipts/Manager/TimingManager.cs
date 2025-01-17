@@ -13,11 +13,13 @@ public class TimingManager : MonoBehaviour
     Vector2[] timingBoxs = null;
 
     EffectManager ef;
+    ScoreManager sm;
 
     // Start is called before the first frame update
     void Start()
     {
         ef = FindAnyObjectByType<EffectManager>();
+        sm = FindAnyObjectByType<ScoreManager>();
 
         timingBoxs = new Vector2[timingRect.Length];
 
@@ -29,7 +31,7 @@ public class TimingManager : MonoBehaviour
 
     }
 
-    public void CheckTiming()
+    public bool CheckTiming()
     {
         for (int i = 0; i < boxNoteList.Count; i ++) 
         {
@@ -39,18 +41,24 @@ public class TimingManager : MonoBehaviour
             {
                 if (timingBoxs[x].x <= notePosX && notePosX <= timingBoxs[x].y)
                 {
-                    // 노트 제거
+                    // ?? ??
                     boxNoteList[i].GetComponent<Note>().HideNote();
                     boxNoteList.RemoveAt(i);
 
-                    // 이펙트 연출
+                    // ??? ??
                     if (x < timingBoxs.Length - 1)
                         ef.NoteHitEffect();
                     ef.JudgeEffect(x);
-                    return;
+
+                    // ?? ??
+                    sm.IncreaseScore(x);
+
+                    return true;
                 }
             }
         }
+        sm.ResetCombo();
         ef.JudgeEffect(timingBoxs.Length);
+        return false;
     }
 }
