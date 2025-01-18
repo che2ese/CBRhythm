@@ -33,10 +33,12 @@ public class PlayerScript : MonoBehaviour
 
     // 기타 
     TimingManager tm;
+    CameraController cc;
 
     private void Awake()
     {
         tm = FindAnyObjectByType<TimingManager>();
+        cc = FindAnyObjectByType<CameraController>();
     }
     // Update is called once per frame
     void Update()
@@ -69,6 +71,7 @@ public class PlayerScript : MonoBehaviour
         StartCoroutine(MoveCo());
         StartCoroutine(SpinCo());
         StartCoroutine(RecoilCo());
+        StartCoroutine(cc.ZoomCam());
     }
 
     IEnumerator MoveCo()
