@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     float moveSpeed = 3f;
 
     Vector3 posDir = new Vector3();
-    Vector3 pos = new Vector3();
+    public Vector3 pos = new Vector3();
 
     // 회전
     [SerializeField]
@@ -47,6 +47,8 @@ public class PlayerScript : MonoBehaviour
         {
             if (canMove)
             {
+                Calc();
+
                 if (tm.CheckTiming())
                 {
                     StartAction();
@@ -54,8 +56,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
-
-    void StartAction()
+    void Calc()
     {
         // 방향 계산
         posDir.Set(Input.GetAxisRaw("Vertical"), 0, Input.GetAxisRaw("Horizontal"));
@@ -68,6 +69,10 @@ public class PlayerScript : MonoBehaviour
         fakeCube.RotateAround(transform.position, rotDir, spinSpeed);
         rot = fakeCube.rotation;
 
+    }
+
+    void StartAction()
+    {
         StartCoroutine(MoveCo());
         StartCoroutine(SpinCo());
         StartCoroutine(RecoilCo());
