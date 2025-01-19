@@ -27,6 +27,7 @@ public class ScoreManager : MonoBehaviour
     Text ComboTxt = null;
 
     int currentCumbo = 0;
+    int maxCombo = 0;
 
     // 콤보 추가 점수
     [SerializeField]
@@ -66,10 +67,20 @@ public class ScoreManager : MonoBehaviour
         anim.SetTrigger(scoreUp);
     }
 
+    public int GetCurrentScore()
+    {
+        return currentScore;
+    }
+
     public void IncreaseCombo(int num = 1)
     {
         currentCumbo += num;
         ComboTxt.text = string.Format("{0:#,##0}", currentCumbo);
+
+        if(maxCombo < currentCumbo)
+        {
+            maxCombo = currentCumbo;
+        }
 
         if (currentCumbo > 2)
         {
@@ -80,6 +91,16 @@ public class ScoreManager : MonoBehaviour
             // 콤보 텍스트 길이에 따라 X 포지션 조정
             AdjustComboTextPosition();
         }
+    }
+
+    public int GetCurrentCombo()
+    {
+        return currentCumbo;
+    }
+
+    public int GetMaxCombo()
+    {
+        return maxCombo;
     }
 
     public void ResetCombo()

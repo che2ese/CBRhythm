@@ -45,6 +45,7 @@ public class NoteManager : MonoBehaviour
         {
             if (collision.GetComponent<Note>().GetNoteFlag())
             {
+                tm.MissRecord();
                 ef.JudgeEffect(4);
                 sm.ResetCombo();
             }
