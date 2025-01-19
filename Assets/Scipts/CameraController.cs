@@ -11,7 +11,10 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     float transitionDuration = 0.5f; // 전환 애니메이션 지속 시간
 
-    Vector3 playerDistance = new Vector3(); // 플레이어와 카메라의 거리
+    [SerializeField]
+    Vector3 offset = new Vector3(2f, 2f, 0f); // 플레이어와 카메라의 초기 상대 위치
+
+    Vector3 playerDistance; // 플레이어와 카메라의 거리
     float hitDistance = 0f; // 카메라 줌 거리
 
     [SerializeField]
@@ -21,16 +24,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        // 초기 위치와 회전 설정
+        // 초기 위치 설정 (플레이어와의 상대적 오프셋 적용)
+        playerDistance = offset;
         ResetGravity();
-
-        // 플레이어와 카메라의 초기 거리 계산
-        playerDistance = transform.position - player.position;
     }
 
     private void Update()
     {
-        // 목표 위치 계산
+        // 목표 위치 계산 (오프셋 포함)
         Vector3 desPos = player.position + playerDistance + (transform.forward * hitDistance);
 
         // 카메라를 부드럽게 플레이어를 따라가도록 설정
@@ -55,7 +56,7 @@ public class CameraController : MonoBehaviour
 
         // 중력 반전 전환 애니메이션 시작
         StartCoroutine(SmoothTransition(
-            new Vector3(playerDistance.x, -Mathf.Abs(playerDistance.y), playerDistance.z),
+            new Vector3(offset.x, -Mathf.Abs(offset.y), offset.z),
             Quaternion.Euler(150f, 45f, 0f)
         ));
     }
@@ -67,7 +68,7 @@ public class CameraController : MonoBehaviour
 
         // 중력 복원 전환 애니메이션 시작
         StartCoroutine(SmoothTransition(
-            new Vector3(playerDistance.x, Mathf.Abs(playerDistance.y), playerDistance.z),
+            new Vector3(offset.x, Mathf.Abs(offset.y), offset.z),
             Quaternion.Euler(30f, 45f, 0f)
         ));
     }

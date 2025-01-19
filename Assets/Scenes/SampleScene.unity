@@ -2055,6 +2055,7 @@ MonoBehaviour:
   player: {fileID: 2098169021}
   speed: 15
   transitionDuration: 0.5
+  offset: {x: 2, y: 2, z: 0}
   zoomDistance: -1.5
   isGravityReversed: 0
 --- !u!1 &909247877 stripped
