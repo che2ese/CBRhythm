@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     float zoomDistance = -1.5f; // 줌 거리 설정
 
     public bool isGravityReversed = false; // 중력 반전 상태를 추적
+    public bool isCameraReversed = false; // 카메라 전환 상태
 
     private void Start()
     {
@@ -54,10 +55,21 @@ public class CameraController : MonoBehaviour
         // 중력 반전 상태로 전환
         isGravityReversed = true;
 
-        // 중력 반전 전환 애니메이션 시작
+        Quaternion targetRotation;
+
+        if (isCameraReversed)
+        {
+            targetRotation = Quaternion.Euler(45f, -90f, 180f);
+        }
+        else
+        {
+            targetRotation = Quaternion.Euler(150f, 45f, 0f);
+        }
+
+        // 카메라 전환 애니메이션 시작
         StartCoroutine(SmoothTransition(
-            new Vector3(offset.x, -Mathf.Abs(offset.y), offset.z),
-            Quaternion.Euler(150f, 45f, 0f)
+            new Vector3(offset.x, offset.y, offset.z),
+            targetRotation
         ));
     }
 
@@ -65,6 +77,65 @@ public class CameraController : MonoBehaviour
     {
         // 중력 반전 상태 해제
         isGravityReversed = false;
+
+        Quaternion targetRotation;
+
+        if (isCameraReversed)
+        {
+            targetRotation = Quaternion.Euler(45f, 90f, 0f);
+        }
+        else
+        {
+            targetRotation = Quaternion.Euler(30f, 45f, 0f);
+        }
+
+        // 카메라 전환 애니메이션 시작
+        StartCoroutine(SmoothTransition(
+            new Vector3(offset.x, offset.y, offset.z),
+            targetRotation
+        ));
+    }
+
+    public void CameraReverse()
+    {
+        isCameraReversed = true;
+
+        Quaternion targetRotation;
+
+        if (isGravityReversed)
+        {
+            // 중력이 반전된 상태에서의 카메라 회전
+            targetRotation = Quaternion.Euler(45f, -90f, 180f);
+        }
+        else
+        {
+            // 기본 상태에서의 카메라 회전
+            targetRotation = Quaternion.Euler(45f, 90f, 0f);
+        }
+
+        // 카메라 전환 애니메이션 시작
+        StartCoroutine(SmoothTransition(
+            new Vector3(offset.x, offset.y, offset.z),
+            targetRotation
+        ));
+    }
+
+    public void ResetCamera()
+    {
+        isCameraReversed = false;
+
+        Quaternion targetRotation;
+
+        if (isGravityReversed)
+        {
+            // 중력이 반전된 상태에서 카메라 복원
+            targetRotation = Quaternion.Euler(150f, 45f, 0f);
+        }
+        else
+        {
+            // 기본 상태에서 카메라 복원
+            targetRotation = Quaternion.Euler(30f, 45f, 0f);
+        }
 
         // 중력 복원 전환 애니메이션 시작
         StartCoroutine(SmoothTransition(

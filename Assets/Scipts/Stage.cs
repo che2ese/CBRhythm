@@ -10,6 +10,8 @@ public class Stage : MonoBehaviour
     public GameObject[] initialTileObjects; // 초기 타일 오브젝트 배열
     public GameObject gravityPlate; // 중력 반전 타일 Prefab
     public int gravityCount = 2; // 중력 반전 타일 개수
+    public GameObject cameraPlate; // 카메라 전환 타일 Prefab
+    public int cameraCount = 2; // 카메라 전환 타일 개수
     public Transform[] plates; // 생성된 타일 Transform 배열 (비활성화된 상태로 저장됨)
 
     private Vector3 currentPosition; // 현재 타일의 위치
@@ -21,6 +23,7 @@ public class Stage : MonoBehaviour
     };
 
     private Queue<int> gravityTileIndices; // 중력 반전 타일 인덱스를 순서대로 저장
+    private Queue<int> cameraTileIndices; // 카메라 전환 타일 인덱스를 순서대로 저장
 
     void Awake()
     {
@@ -29,6 +32,9 @@ public class Stage : MonoBehaviour
 
         // 중력 반전 타일 인덱스 생성
         gravityTileIndices = new Queue<int>(GenerateRandomIndices(gravityCount, numberOfTiles - 1, numberOfTiles / (gravityCount * 2))); // Goal 타일 제외, 간격 20 보장
+
+        // 카메라 전환 타일 인덱스 생성
+        cameraTileIndices = new Queue<int>(GenerateRandomIndices(cameraCount, numberOfTiles - 1, numberOfTiles / (cameraCount * 2))); // Goal 타일 제외, 간격 보장
 
         // 초기 타일 오브젝트가 존재하는지 확인
         if (initialTileObjects.Length > 0)
@@ -63,6 +69,12 @@ public class Stage : MonoBehaviour
                 // 중력 반전 타일 생성
                 gravityTileIndices.Dequeue(); // 인덱스 제거
                 GenerateGravityTile(i);
+            }
+            else if (cameraTileIndices.Count > 0 && cameraTileIndices.Peek() == i)
+            {
+                // 카메라 전환 타일 생성
+                cameraTileIndices.Dequeue(); // 인덱스 제거
+                GenerateCameraTile(i);
             }
             else
             {
@@ -112,6 +124,26 @@ public class Stage : MonoBehaviour
         lastDirection = nextDirection;
     }
 
+    // 카메라 전환 타일을 생성하는 메서드
+    void GenerateCameraTile(int index)
+    {
+        Vector3 nextDirection;
+        do
+        {
+            nextDirection = directions[Random.Range(0, directions.Length)];
+        } while (nextDirection == -lastDirection);
+
+        currentPosition += nextDirection;
+        currentPosition.y = -0.6f;
+
+        GameObject cameraTile = Instantiate(cameraPlate, currentPosition, Quaternion.Euler(0f, -90f, 0f));
+        cameraTile.transform.parent = this.transform;
+        cameraTile.SetActive(false);
+        plates[index] = cameraTile.transform;
+
+        lastDirection = nextDirection;
+    }
+
     // Goal 타일을 생성하는 메서드
     void GenerateGoalTile(int index)
     {
@@ -132,7 +164,7 @@ public class Stage : MonoBehaviour
         lastDirection = nextDirection;
     }
 
-    // 중력 반전 타일 인덱스를 랜덤으로 생성하는 메서드 (최소 간격 포함)
+    // 랜덤 인덱스를 생성하는 메서드 (최소 간격 포함)
     List<int> GenerateRandomIndices(int count, int maxIndex, int minGap)
     {
         List<int> indices = new List<int>();
