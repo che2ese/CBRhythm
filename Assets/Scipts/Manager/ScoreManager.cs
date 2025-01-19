@@ -65,24 +65,50 @@ public class ScoreManager : MonoBehaviour
 
         anim.SetTrigger(scoreUp);
     }
-    
+
     public void IncreaseCombo(int num = 1)
     {
         currentCumbo += num;
         ComboTxt.text = string.Format("{0:#,##0}", currentCumbo);
 
-        if(currentCumbo > 2)
+        if (currentCumbo > 2)
         {
             ComboTxt.gameObject.SetActive(true);
             ComboImage.SetActive(true);
             comboAnimator.SetTrigger(comboUp);
+
+            // 콤보 텍스트 길이에 따라 X 포지션 조정
+            AdjustComboTextPosition();
         }
     }
+
     public void ResetCombo()
     {
         currentCumbo = 0;
         ComboTxt.text = "0";
         ComboTxt.gameObject.SetActive(false);
         ComboImage.SetActive(false);
+    }
+
+    private void AdjustComboTextPosition()
+    {
+        // ComboTxt의 RectTransform 가져오기
+        RectTransform comboRect = ComboTxt.GetComponent<RectTransform>();
+
+        // 콤보 텍스트 길이에 따라 X 포지션 설정
+        int textLength = ComboTxt.text.Length;
+
+        if (textLength == 1)
+        {
+            comboRect.anchoredPosition = new Vector2(-70, comboRect.anchoredPosition.y);
+        }
+        else if (textLength == 2)
+        {
+            comboRect.anchoredPosition = new Vector2(-90, comboRect.anchoredPosition.y);
+        }
+        else if (textLength >= 3)
+        {
+            comboRect.anchoredPosition = new Vector2(-100, comboRect.anchoredPosition.y);
+        }
     }
 }

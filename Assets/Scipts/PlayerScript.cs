@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static bool canPressKey = true;
+
     // 이동
     [SerializeField]
     float moveSpeed = 3f;
@@ -40,12 +42,16 @@ public class PlayerScript : MonoBehaviour
         tm = FindAnyObjectByType<TimingManager>();
         cc = FindAnyObjectByType<CameraController>();
     }
+    private void Start()
+    {
+        canPressKey = true;
+    }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
         {
-            if (canMove)
+            if (canMove && canPressKey)
             {
                 Calc();
 
