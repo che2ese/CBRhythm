@@ -505,13 +505,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
   goalPlate: {fileID: 1518449810206894555, guid: 8e108a150b6f045f4b6f7ce404b86634, type: 3}
-  numberOfTiles: 10
+  numberOfTiles: 100
   initialTileObjects:
   - {fileID: 102507072}
   - {fileID: 1908039160}
   - {fileID: 1077375085}
   - {fileID: 909247877}
   - {fileID: 1870968552}
+  gravityPlate: {fileID: 1518449810206894555, guid: 2b5fdb289f94847f8b4607aa8f21d8dc, type: 3}
+  gravityCount: 2
   plates: []
 --- !u!1 &176722608
 GameObject:
@@ -2030,7 +2032,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869454763}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
+  m_LocalRotation: {x: 0.23911765, y: 0.36964378, z: -0.09904577, w: 0.8923991}
   m_LocalPosition: {x: 2, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2052,7 +2054,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2098169021}
   speed: 15
+  transitionDuration: 0.5
   zoomDistance: -1.5
+  isGravityReversed: 0
 --- !u!1 &909247877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}

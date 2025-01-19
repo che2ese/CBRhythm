@@ -6,8 +6,10 @@ public class Stage : MonoBehaviour
 {
     public GameObject prefab; // 일반 타일 Prefab
     public GameObject goalPlate; // 마지막 타일(Goal) Prefab
-    public int numberOfTiles = 10; // 추가로 생성할 타일 수
+    public int numberOfTiles = 100; // 추가로 생성할 타일 수
     public GameObject[] initialTileObjects; // 초기 타일 오브젝트 배열
+    public GameObject gravityPlate; // 중력 반전 타일 Prefab
+    public int gravityCount = 2; // 중력 반전 타일 개수
     public Transform[] plates; // 생성된 타일 Transform 배열 (비활성화된 상태로 저장됨)
 
     private Vector3 currentPosition; // 현재 타일의 위치
@@ -18,17 +20,21 @@ public class Stage : MonoBehaviour
         Vector3.forward // z축 방향 (0, 0, 1)
     };
 
-    void Awake() 
+    private Queue<int> gravityTileIndices; // 중력 반전 타일 인덱스를 순서대로 저장
+
+    void Awake()
     {
         // plates 배열 초기화: 생성될 타일 개수만큼 배열 크기 설정
         plates = new Transform[numberOfTiles];
+
+        // 중력 반전 타일 인덱스 생성
+        gravityTileIndices = new Queue<int>(GenerateRandomIndices(gravityCount, numberOfTiles - 1, numberOfTiles / (gravityCount * 2))); // Goal 타일 제외, 간격 20 보장
 
         // 초기 타일 오브젝트가 존재하는지 확인
         if (initialTileObjects.Length > 0)
         {
             for (int i = 0; i < initialTileObjects.Length; i++)
             {
-                // 초기 타일의 위치 확인 (디버그용 로그 출력)
                 Debug.Log($"초기 타일 {i + 1} 위치: {initialTileObjects[i].transform.position}");
             }
 
@@ -37,7 +43,6 @@ public class Stage : MonoBehaviour
         }
         else
         {
-            // 초기 타일이 없을 경우 오류 출력
             Debug.LogError("초기 타일 오브젝트 배열이 비어 있습니다!");
             return;
         }
@@ -53,6 +58,12 @@ public class Stage : MonoBehaviour
                 // 마지막 타일은 Goal 타일로 생성
                 GenerateGoalTile(i);
             }
+            else if (gravityTileIndices.Count > 0 && gravityTileIndices.Peek() == i)
+            {
+                // 중력 반전 타일 생성
+                gravityTileIndices.Dequeue(); // 인덱스 제거
+                GenerateGravityTile(i);
+            }
             else
             {
                 // 일반 타일 생성
@@ -64,48 +75,80 @@ public class Stage : MonoBehaviour
     // 일반 타일을 생성하는 메서드
     void GenerateTile(int index)
     {
-        // 다음 방향 결정 (이전 방향의 반대 방향으로 돌아가는 것 방지)
         Vector3 nextDirection;
         do
         {
             nextDirection = directions[Random.Range(0, directions.Length)];
         } while (nextDirection == -lastDirection);
 
-        // 현재 위치 갱신 (y축은 고정)
         currentPosition += nextDirection;
         currentPosition.y = -0.6f;
 
-        // 일반 타일 Prefab 생성
         GameObject newTile = Instantiate(prefab, currentPosition, Quaternion.identity);
-        newTile.transform.parent = this.transform; // 이 스크립트가 부착된 오브젝트를 부모로 설정
-        newTile.SetActive(false); // 타일 비활성화 상태로 저장
-        plates[index] = newTile.transform; // plates 배열에 Transform 저장
+        newTile.transform.parent = this.transform;
+        newTile.SetActive(false);
+        plates[index] = newTile.transform;
 
-        // 이전 방향 갱신
+        lastDirection = nextDirection;
+    }
+
+    // 중력 반전 타일을 생성하는 메서드
+    void GenerateGravityTile(int index)
+    {
+        Vector3 nextDirection;
+        do
+        {
+            nextDirection = directions[Random.Range(0, directions.Length)];
+        } while (nextDirection == -lastDirection);
+
+        currentPosition += nextDirection;
+        currentPosition.y = -0.6f;
+
+        GameObject gravityTile = Instantiate(gravityPlate, currentPosition, Quaternion.Euler(0f, 90f, 0f));
+        gravityTile.transform.parent = this.transform;
+        gravityTile.SetActive(false);
+        plates[index] = gravityTile.transform;
+
         lastDirection = nextDirection;
     }
 
     // Goal 타일을 생성하는 메서드
     void GenerateGoalTile(int index)
     {
-        // 다음 방향 결정 (이전 방향의 반대 방향으로 돌아가는 것 방지)
         Vector3 nextDirection;
         do
         {
             nextDirection = directions[Random.Range(0, directions.Length)];
         } while (nextDirection == -lastDirection);
 
-        // 현재 위치 갱신 (y축은 고정)
         currentPosition += nextDirection;
         currentPosition.y = -0.6f;
 
-        // Goal 타일 Prefab 생성
         GameObject goalTile = Instantiate(goalPlate, currentPosition, Quaternion.identity);
-        goalTile.transform.parent = this.transform; // 이 스크립트가 부착된 오브젝트를 부모로 설정
-        goalTile.SetActive(false); // 타일 비활성화 상태로 저장
-        plates[index] = goalTile.transform; // plates 배열에 Transform 저장
+        goalTile.transform.parent = this.transform;
+        goalTile.SetActive(false);
+        plates[index] = goalTile.transform;
 
-        // 이전 방향 갱신
         lastDirection = nextDirection;
+    }
+
+    // 중력 반전 타일 인덱스를 랜덤으로 생성하는 메서드 (최소 간격 포함)
+    List<int> GenerateRandomIndices(int count, int maxIndex, int minGap)
+    {
+        List<int> indices = new List<int>();
+
+        while (indices.Count < count)
+        {
+            int randomIndex = Random.Range(0, maxIndex);
+
+            // 최소 간격 보장
+            if (indices.Count == 0 || randomIndex - indices[indices.Count - 1] >= minGap)
+            {
+                indices.Add(randomIndex);
+            }
+        }
+
+        indices.Sort(); // 오름차순 정렬하여 순서대로 배치
+        return indices;
     }
 }
