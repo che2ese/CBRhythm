@@ -7,14 +7,15 @@ public class PlayerScript : MonoBehaviour
     public static bool canPressKey = true;
 
     // 이동
+    [Header("Movement")]
     [SerializeField]
     float moveSpeed = 3f;
-
     Vector3 posDir = new Vector3();
     public Vector3 pos = new Vector3();
     Vector3 originPos = new Vector3();
 
     // 회전
+    [Header("Rotation")]
     [SerializeField]
     float spinSpeed = 270f;
 
@@ -22,11 +23,13 @@ public class PlayerScript : MonoBehaviour
     Quaternion rot = new Quaternion();
 
     // 반동
+    [Header("Rebound")]
     [SerializeField]
     float recoilPosY = 0.25f;
     [SerializeField]
     float recoilSpeed = 1.5f;
 
+    [Header("State")]
     bool canMove = true;
     bool isFalling = false;
 
