@@ -55,34 +55,44 @@ public class Stage : MonoBehaviour
 
         // 이전 방향 초기화
         lastDirection = Vector3.zero;
-
-        // 추가 타일 생성
+    }
+    private void Start()
+    {
+        // numberOfTiles 개수만큼 타일을 생성
         for (int i = 0; i < numberOfTiles; i++)
         {
+            // 1. 마지막 타일을 Goal 타일로 생성
             if (i == numberOfTiles - 1)
             {
-                // 마지막 타일은 Goal 타일로 생성
+                // 타일 생성 루프에서 마지막 인덱스의 타일은 Goal 타일로 생성합니다.
+                // Goal 타일은 게임의 끝 지점을 나타내는 타일입니다.
                 GenerateGoalTile(i);
             }
+            // 2. 현재 타일 인덱스가 중력 반전 타일 인덱스 큐의 첫 번째 값과 일치하는 경우
             else if (gravityTileIndices.Count > 0 && gravityTileIndices.Peek() == i)
             {
-                // 중력 반전 타일 생성
-                gravityTileIndices.Dequeue(); // 인덱스 제거
-                GenerateGravityTile(i);
+                // 중력 반전 타일을 생성하고 해당 인덱스를 큐에서 제거합니다.
+                // gravityTileIndices는 중력 반전 타일로 설정할 인덱스를 저장하는 큐입니다.
+                gravityTileIndices.Dequeue(); // 첫 번째 인덱스를 제거
+                GenerateGravityTile(i); // 중력 반전 타일 생성
             }
+            // 3. 현재 타일 인덱스가 카메라 전환 타일 인덱스 큐의 첫 번째 값과 일치하는 경우
             else if (cameraTileIndices.Count > 0 && cameraTileIndices.Peek() == i)
             {
-                // 카메라 전환 타일 생성
-                cameraTileIndices.Dequeue(); // 인덱스 제거
-                GenerateCameraTile(i);
+                // 카메라 전환 타일을 생성하고 해당 인덱스를 큐에서 제거합니다.
+                // cameraTileIndices는 카메라 전환 타일로 설정할 인덱스를 저장하는 큐입니다.
+                cameraTileIndices.Dequeue(); // 첫 번째 인덱스를 제거
+                GenerateCameraTile(i); // 카메라 전환 타일 생성
             }
+            // 4. 위 조건에 해당하지 않는 경우 일반 타일을 생성
             else
             {
-                // 일반 타일 생성
+                // 중력 반전 타일 또는 카메라 전환 타일이 아니면 일반 타일을 생성합니다.
                 GenerateTile(i);
             }
         }
     }
+
 
     // 일반 타일을 생성하는 메서드
     void GenerateTile(int index)

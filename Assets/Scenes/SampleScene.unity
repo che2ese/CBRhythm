@@ -505,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
   goalPlate: {fileID: 1518449810206894555, guid: 8e108a150b6f045f4b6f7ce404b86634, type: 3}
-  numberOfTiles: 50
+  numberOfTiles: 100
   initialTileObjects:
   - {fileID: 102507072}
   - {fileID: 1908039160}
