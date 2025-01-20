@@ -20,7 +20,7 @@ public class Result : MonoBehaviour
     ScoreManager sm;
     TimingManager tm;
 
-    private void Start()
+    private void Awake()
     {
         sm = FindAnyObjectByType<ScoreManager>();
         tm = FindAnyObjectByType<TimingManager>();

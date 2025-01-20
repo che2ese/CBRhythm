@@ -58,6 +58,11 @@ public class Stage : MonoBehaviour
     }
     private void Start()
     {
+        CreateTiles();
+    }
+
+    void CreateTiles()
+    {
         // numberOfTiles 개수만큼 타일을 생성
         for (int i = 0; i < numberOfTiles; i++)
         {
@@ -92,7 +97,6 @@ public class Stage : MonoBehaviour
             }
         }
     }
-
 
     // 일반 타일을 생성하는 메서드
     void GenerateTile(int index)

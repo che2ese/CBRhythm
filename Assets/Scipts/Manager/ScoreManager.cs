@@ -36,10 +36,14 @@ public class ScoreManager : MonoBehaviour
     int comboBonusScore = 10;
     string comboUp = "ComboUp";
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         currentScore = 0;
         score.text = "0";
 

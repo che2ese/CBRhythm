@@ -21,21 +21,24 @@ public class TimingManager : MonoBehaviour
     PlayerScript ps;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         ef = FindAnyObjectByType<EffectManager>();
         sm = FindAnyObjectByType<ScoreManager>();
         stm = FindAnyObjectByType<StageManager>();
         ps = FindAnyObjectByType<PlayerScript>();
+    }
+
+    private void Start()
+    {
 
         timingBoxs = new Vector2[timingRect.Length];
 
-        for(int i = 0; i <  timingRect.Length; i++)
+        for (int i = 0; i < timingRect.Length; i++)
         {
             timingBoxs[i].Set(Center.localPosition.x - timingRect[i].rect.width / 2,
                               Center.localPosition.x + timingRect[i].rect.width / 2);
         }
-
     }
 
     public bool CheckTiming()
