@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+    [Header("Basic Plate")]
     public GameObject prefab; // 일반 타일 Prefab
     public GameObject goalPlate; // 마지막 타일(Goal) Prefab
     public int numberOfTiles = 100; // 추가로 생성할 타일 수
     public GameObject[] initialTileObjects; // 초기 타일 오브젝트 배열
+
+    [System.Serializable]
+    public class PlateIndices
+    {
+        public List<int> indices = new List<int>(); // 반드시 초기화
+    }
+
+    [Header("Gravity Plate")]
     public GameObject gravityPlate; // 중력 반전 타일 Prefab
-    public int gravityCount = 2; // 중력 반전 타일 개수
+    public PlateIndices gravityPlateIndices = new PlateIndices(); // 중력 반전 타일 위치 리스트
+
+    [Header("Camera Plate")]
     public GameObject cameraPlate; // 카메라 전환 타일 Prefab
-    public int cameraCount = 2; // 카메라 전환 타일 개수
+    public PlateIndices cameraPlateIndices = new PlateIndices(); // 카메라 전환 타일 위치 리스트
+
     public Transform[] plates; // 생성된 타일 Transform 배열 (비활성화된 상태로 저장됨)
 
     private Vector3 currentPosition; // 현재 타일의 위치
@@ -22,19 +34,10 @@ public class Stage : MonoBehaviour
         Vector3.forward // z축 방향 (0, 0, 1)
     };
 
-    private Queue<int> gravityTileIndices; // 중력 반전 타일 인덱스를 순서대로 저장
-    private Queue<int> cameraTileIndices; // 카메라 전환 타일 인덱스를 순서대로 저장
-
     void Awake()
     {
         // plates 배열 초기화: 생성될 타일 개수만큼 배열 크기 설정
         plates = new Transform[numberOfTiles];
-
-        // 중력 반전 타일 인덱스 생성
-        gravityTileIndices = new Queue<int>(GenerateRandomIndices(gravityCount, numberOfTiles - 1, numberOfTiles / (gravityCount * 2))); // Goal 타일 제외, 간격 20 보장
-
-        // 카메라 전환 타일 인덱스 생성
-        cameraTileIndices = new Queue<int>(GenerateRandomIndices(cameraCount, numberOfTiles - 1, numberOfTiles / (cameraCount * 2))); // Goal 타일 제외, 간격 보장
 
         // 초기 타일 오브젝트가 존재하는지 확인
         if (initialTileObjects.Length > 0)
@@ -56,6 +59,7 @@ public class Stage : MonoBehaviour
         // 이전 방향 초기화
         lastDirection = Vector3.zero;
     }
+
     private void Start()
     {
         CreateTiles();
@@ -63,36 +67,25 @@ public class Stage : MonoBehaviour
 
     void CreateTiles()
     {
-        // numberOfTiles 개수만큼 타일을 생성
+        if (!Application.isPlaying)
+            return; // 플레이 모드가 아니면 실행하지 않음
+
         for (int i = 0; i < numberOfTiles; i++)
         {
-            // 1. 마지막 타일을 Goal 타일로 생성
             if (i == numberOfTiles - 1)
             {
-                // 타일 생성 루프에서 마지막 인덱스의 타일은 Goal 타일로 생성합니다.
-                // Goal 타일은 게임의 끝 지점을 나타내는 타일입니다.
                 GenerateGoalTile(i);
             }
-            // 2. 현재 타일 인덱스가 중력 반전 타일 인덱스 큐의 첫 번째 값과 일치하는 경우
-            else if (gravityTileIndices.Count > 0 && gravityTileIndices.Peek() == i)
+            else if (gravityPlateIndices?.indices != null && gravityPlateIndices.indices.Contains(i))
             {
-                // 중력 반전 타일을 생성하고 해당 인덱스를 큐에서 제거합니다.
-                // gravityTileIndices는 중력 반전 타일로 설정할 인덱스를 저장하는 큐입니다.
-                gravityTileIndices.Dequeue(); // 첫 번째 인덱스를 제거
-                GenerateGravityTile(i); // 중력 반전 타일 생성
+                GenerateGravityTile(i);
             }
-            // 3. 현재 타일 인덱스가 카메라 전환 타일 인덱스 큐의 첫 번째 값과 일치하는 경우
-            else if (cameraTileIndices.Count > 0 && cameraTileIndices.Peek() == i)
+            else if (cameraPlateIndices?.indices != null && cameraPlateIndices.indices.Contains(i))
             {
-                // 카메라 전환 타일을 생성하고 해당 인덱스를 큐에서 제거합니다.
-                // cameraTileIndices는 카메라 전환 타일로 설정할 인덱스를 저장하는 큐입니다.
-                cameraTileIndices.Dequeue(); // 첫 번째 인덱스를 제거
-                GenerateCameraTile(i); // 카메라 전환 타일 생성
+                GenerateCameraTile(i);
             }
-            // 4. 위 조건에 해당하지 않는 경우 일반 타일을 생성
             else
             {
-                // 중력 반전 타일 또는 카메라 전환 타일이 아니면 일반 타일을 생성합니다.
                 GenerateTile(i);
             }
         }
@@ -176,25 +169,5 @@ public class Stage : MonoBehaviour
         plates[index] = goalTile.transform;
 
         lastDirection = nextDirection;
-    }
-
-    // 랜덤 인덱스를 생성하는 메서드 (최소 간격 포함)
-    List<int> GenerateRandomIndices(int count, int maxIndex, int minGap)
-    {
-        List<int> indices = new List<int>();
-
-        while (indices.Count < count)
-        {
-            int randomIndex = Random.Range(0, maxIndex);
-
-            // 최소 간격 보장
-            if (indices.Count == 0 || randomIndex - indices[indices.Count - 1] >= minGap)
-            {
-                indices.Add(randomIndex);
-            }
-        }
-
-        indices.Sort(); // 오름차순 정렬하여 순서대로 배치
-        return indices;
     }
 }

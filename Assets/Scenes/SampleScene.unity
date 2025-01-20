@@ -512,11 +512,13 @@ MonoBehaviour:
   - {fileID: 1077375085}
   - {fileID: 909247877}
   - {fileID: 1870968552}
-  gravityPlate: {fileID: 1518449810206894555, guid: 2b5fdb289f94847f8b4607aa8f21d8dc, type: 3}
-  gravityCount: 2
-  cameraPlate: {fileID: 1518449810206894555, guid: 131ae4a7f3d6c497e9395f6cd2071481, type: 3}
-  cameraCount: 2
   plates: []
+  gravityPlate: {fileID: 1518449810206894555, guid: 2b5fdb289f94847f8b4607aa8f21d8dc, type: 3}
+  gravityPlateIndices:
+    indices: 0a0000001e000000460000005a000000
+  cameraPlate: {fileID: 1518449810206894555, guid: 131ae4a7f3d6c497e9395f6cd2071481, type: 3}
+  cameraPlateIndices:
+    indices: 3200000050000000
 --- !u!1 &176722608
 GameObject:
   m_ObjectHideFlags: 0

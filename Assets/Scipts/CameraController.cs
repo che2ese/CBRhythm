@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     float transitionDuration = 0.5f; // 전환 애니메이션 지속 시간
 
     [SerializeField]
-    Vector3 offset = new Vector3(2f, 2f, 0f); // 플레이어와 카메라의 초기 상대 위치
+    Vector3 offset = new Vector3(0f, 2f, 0f); // 플레이어와 카메라의 초기 상대 위치
 
     Vector3 playerDistance; // 플레이어와 카메라의 거리
     float hitDistance = 0f; // 카메라 줌 거리
