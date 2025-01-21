@@ -29,7 +29,7 @@ public class StageManager : MonoBehaviour
         stageplates = stageComponent.plates;
         totalPlateCount = stageplates.Length;
 
-        for(int i =0; i<totalPlateCount; i++)
+        for (int i = 0; i < totalPlateCount; i++)
         {
             stageplates[i].position = new Vector3(stageplates[i].position.x,
                                                     stageplates[i].position.y + offsetY,
@@ -50,7 +50,7 @@ public class StageManager : MonoBehaviour
                                         stageplates[num].position.y - offsetY,
                                         stageplates[num].position.z);
 
-        while(Vector3.SqrMagnitude(stageplates[num].position - desPos) >= 0.001f)
+        while (Vector3.SqrMagnitude(stageplates[num].position - desPos) >= 0.001f)
         {
             stageplates[num].position = Vector3.Lerp(stageplates[num].position, desPos, plateSpeed * Time.deltaTime);
             yield return null;

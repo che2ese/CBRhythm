@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator RecoilCo()
     {
-        while(realCube.position.y < recoilPosY)
+        while (realCube.position.y < recoilPosY)
         {
             realCube.position += new Vector3(0, recoilSpeed * Time.deltaTime, 0);
             yield return null;

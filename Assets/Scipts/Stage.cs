@@ -10,6 +10,17 @@ public class Stage : MonoBehaviour
     public int numberOfTiles = 100; // 추가로 생성할 타일 수
     public GameObject[] initialTileObjects; // 초기 타일 오브젝트 배열
 
+    [Header("Big Plate")]
+    public GameObject bigPrefab; // 크기가 3배 큰 타일 Prefab
+    public List<Range> bigTileRanges = new List<Range>(); // 빅 타일 범위 리스트
+
+    [System.Serializable]
+    public struct Range
+    {
+        public int startIndex;
+        public int endIndex;
+    }
+
     [System.Serializable]
     public class PlateIndices
     {
@@ -68,13 +79,17 @@ public class Stage : MonoBehaviour
     void CreateTiles()
     {
         if (!Application.isPlaying)
-            return; // 플레이 모드가 아니면 실행하지 않음
+            return;
 
         for (int i = 0; i < numberOfTiles; i++)
         {
             if (i == numberOfTiles - 1)
             {
                 GenerateGoalTile(i);
+            }
+            else if (IsInBigTileRange(i))
+            {
+                GenerateBigTile(i);
             }
             else if (gravityPlateIndices?.indices != null && gravityPlateIndices.indices.Contains(i))
             {
@@ -90,6 +105,7 @@ public class Stage : MonoBehaviour
             }
         }
     }
+
 
     // 일반 타일을 생성하는 메서드
     void GenerateTile(int index)
@@ -140,7 +156,15 @@ public class Stage : MonoBehaviour
             nextDirection = directions[Random.Range(0, directions.Length)];
         } while (nextDirection == -lastDirection);
 
-        currentPosition += nextDirection;
+        // 카메라 타일이 뒤에 나오는 경우 이동 거리 2
+        if (cameraPlateIndices.indices.IndexOf(index) == cameraPlateIndices.indices.Count - 1)
+        {
+            currentPosition += nextDirection * 2f;
+        }
+        else
+        {
+            currentPosition += nextDirection;
+        }
         currentPosition.y = -0.6f;
 
         GameObject cameraTile = Instantiate(cameraPlate, currentPosition, Quaternion.Euler(0f, -90f, 0f));
@@ -150,6 +174,7 @@ public class Stage : MonoBehaviour
 
         lastDirection = nextDirection;
     }
+
 
     // Goal 타일을 생성하는 메서드
     void GenerateGoalTile(int index)
@@ -170,4 +195,62 @@ public class Stage : MonoBehaviour
 
         lastDirection = nextDirection;
     }
+
+    bool IsInBigTileRange(int index)
+    {
+        foreach (Range range in bigTileRanges)
+        {
+            if (index >= range.startIndex && index <= range.endIndex)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool IsFirstTileInBigTileRange(int index)
+    {
+        foreach (Range range in bigTileRanges)
+        {
+            if (index == range.startIndex)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void GenerateBigTile(int index)
+    {
+        Vector3 nextDirection;
+        do
+        {
+            nextDirection = directions[Random.Range(0, directions.Length)];
+        } while (nextDirection == -lastDirection);
+
+        // 현재 타일의 이동 거리 결정
+        if (IsFirstTileInBigTileRange(index))
+        {
+            // 범위의 첫 번째 타일: 이동 거리 2
+            currentPosition += nextDirection * 2f;
+        }
+        else
+        {
+            // 범위 내 나머지 타일: 이동 거리 3
+            currentPosition += nextDirection * 3f;
+        }
+        currentPosition.y = -0.6f;
+
+        // bigPrefab 생성
+        GameObject bigTile = Instantiate(bigPrefab, currentPosition, Quaternion.identity);
+        bigTile.transform.parent = this.transform;
+        bigTile.transform.localScale = new Vector3(3f, 0.2f, 3f); // 크기를 3배로 설정
+        bigTile.SetActive(false);
+
+        plates[index] = bigTile.transform;
+
+        // 다음 타일 위치 조정
+        lastDirection = nextDirection;
+    }
+
 }

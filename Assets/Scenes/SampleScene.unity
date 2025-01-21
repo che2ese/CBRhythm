@@ -512,13 +512,17 @@ MonoBehaviour:
   - {fileID: 1077375085}
   - {fileID: 909247877}
   - {fileID: 1870968552}
-  plates: []
+  bigPrefab: {fileID: 1518449810206894555, guid: 1bc208fbf0db148c1a456a37f0d5474c, type: 3}
+  bigTileRanges:
+  - startIndex: 2
+    endIndex: 4
   gravityPlate: {fileID: 1518449810206894555, guid: 2b5fdb289f94847f8b4607aa8f21d8dc, type: 3}
   gravityPlateIndices:
     indices: 0a0000001e000000460000005a000000
   cameraPlate: {fileID: 1518449810206894555, guid: 131ae4a7f3d6c497e9395f6cd2071481, type: 3}
   cameraPlateIndices:
-    indices: 3200000050000000
+    indices: 0100000005000000
+  plates: []
 --- !u!1 &176722608
 GameObject:
   m_ObjectHideFlags: 0
@@ -5033,6 +5037,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 136047649}
     m_Modifications:
+    - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
+      propertyPath: flag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
       value: BasicPlate
@@ -5075,10 +5083,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5396811446070073806, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
-      propertyPath: flag
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

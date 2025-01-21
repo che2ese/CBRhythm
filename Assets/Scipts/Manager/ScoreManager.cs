@@ -81,7 +81,7 @@ public class ScoreManager : MonoBehaviour
         currentCumbo += num;
         ComboTxt.text = string.Format("{0:#,##0}", currentCumbo);
 
-        if(maxCombo < currentCumbo)
+        if (maxCombo < currentCumbo)
         {
             maxCombo = currentCumbo;
         }
@@ -120,7 +120,7 @@ public class ScoreManager : MonoBehaviour
         // ComboTxt의 RectTransform 가져오기
         RectTransform comboRect = ComboTxt.GetComponent<RectTransform>();
 
-        // 콤보 텍스트 길이에 따라 X 포지션 설정
+        // 콤보 텍스트 길이에 따라 X 포지션 설정ㅁ
         int textLength = ComboTxt.text.Length;
 
         if (textLength == 1)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Note
   - BasicPlate
+  - BigPlate
   layers:
   - Default
   - TransparentFX
