@@ -30,6 +30,7 @@ public class BreakPlate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySFX("Break");
             StartCoroutine(DropPlate());
         }
     }

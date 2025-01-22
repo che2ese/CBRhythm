@@ -16,6 +16,8 @@ public class GravityPlate : MonoBehaviour
     {
         if (!isActivated && other.CompareTag("Player")) // 중력 판이 활성화되지 않았을 때만 실행
         {
+            AudioManager.instance.PlaySFX("Gravity");
+
             isActivated = true; // 중력 판을 활성화된 상태로 변경
 
             if (cc.isGravityReversed)

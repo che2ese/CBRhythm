@@ -50,6 +50,7 @@ public class TeleportPlate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySFX("Teleport");
             // 충돌 범위에서 벗어나면 순간이동 플래그 초기화
             isTeleporting = false;
         }

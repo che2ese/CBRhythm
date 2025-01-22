@@ -14,6 +14,7 @@ public class TrapPlate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySFX("Crash");
             sm.DecreaseHp(1);
         }
     }

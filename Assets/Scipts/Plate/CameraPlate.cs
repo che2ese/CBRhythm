@@ -20,10 +20,12 @@ public class CameraPlate : MonoBehaviour
 
             if (cc.isCameraReversed)
             {
+                AudioManager.instance.PlaySFX("Reset");
                 cc.ResetCamera();
             }
             else
             {
+                AudioManager.instance.PlaySFX("Reverse");
                 cc.CameraReverse();
             }
         }

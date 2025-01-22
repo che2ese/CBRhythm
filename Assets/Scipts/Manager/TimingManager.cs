@@ -19,10 +19,12 @@ public class TimingManager : MonoBehaviour
     ScoreManager sm;
     StageManager stm;
     PlayerScript ps;
+    AudioManager am;
 
     // Start is called before the first frame update
     void Awake()
     {
+        am = AudioManager.instance;
         ef = FindAnyObjectByType<EffectManager>();
         sm = FindAnyObjectByType<ScoreManager>();
         stm = FindAnyObjectByType<StageManager>();
@@ -76,6 +78,9 @@ public class TimingManager : MonoBehaviour
                     {
                         ef.JudgeEffect(5);
                     }
+
+                    am.PlaySFX("Clap");
+
                     return true;
                 }
             }

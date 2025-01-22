@@ -157,6 +157,7 @@ public class PlayerScript : MonoBehaviour
     public void ResetFalling()
     {
         sm.DecreaseHp(1);
+        AudioManager.instance.PlaySFX("Falling");
 
         if (!sm.IsDead())
         {
