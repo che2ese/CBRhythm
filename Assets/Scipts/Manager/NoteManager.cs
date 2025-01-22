@@ -56,7 +56,7 @@ public class NoteManager : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
-    public void RemoceNote()
+    public void RemoveNote()
     {
         noteActive = false;
 

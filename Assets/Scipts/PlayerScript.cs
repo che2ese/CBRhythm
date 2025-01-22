@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     float moveSpeed = 3f;
     Vector3 posDir = new Vector3();
     public Vector3 pos = new Vector3();
-    Vector3 originPos = new Vector3();
+    public Vector3 originPos = new Vector3();
 
     // 회전
     [Header("Rotation")]
@@ -35,18 +35,20 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]
     Transform fakeCube = null;
-    [SerializeField]
-    Transform realCube = null;
+
+    public Transform realCube = null;
 
     // 기타 
     TimingManager tm;
     CameraController cc;
     Rigidbody rb;
+    StatusManager sm;
 
     private void Awake()
     {
         tm = FindAnyObjectByType<TimingManager>();
         cc = FindAnyObjectByType<CameraController>();
+        sm = FindAnyObjectByType<StatusManager>();
         rb = GetComponentInChildren<Rigidbody>();
     }
     private void Start()
@@ -68,7 +70,7 @@ public class PlayerScript : MonoBehaviour
                 if (tm.CheckTiming())
                 {
                     StartAction();
-                }
+                }   
             }
         }
     }
@@ -154,11 +156,16 @@ public class PlayerScript : MonoBehaviour
     }
     public void ResetFalling()
     {
-        isFalling = false;
-        rb.useGravity = false;
-        rb.isKinematic = true;
+        sm.DecreaseHp(1);
 
-        transform.position = originPos;
-        realCube.localPosition = new Vector3(0, 0, 0);
+        if (!sm.IsDead())
+        {
+            isFalling = false;
+            rb.useGravity = false;
+            rb.isKinematic = true;
+
+            transform.position = originPos;
+            realCube.localPosition = new Vector3(0, 0, 0);
+        }
     }
 }

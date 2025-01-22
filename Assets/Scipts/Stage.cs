@@ -39,6 +39,10 @@ public class Stage : MonoBehaviour
     public GameObject cameraPlate; // 카메라 전환 타일 Prefab
     public PlateIndices cameraPlateIndices = new PlateIndices(); // 카메라 전환 타일 위치 리스트
 
+    [Header("Teleport Plate")]
+    public GameObject telePortPlate; // 텔레포트 타일 Prefab
+    public PlateIndices telePortPlateIndices = new PlateIndices(); // 텔레포트 타일 위치 리스트
+
     public Transform[] plates; // 생성된 타일 Transform 배열 (비활성화된 상태로 저장됨)
 
     private Vector3 currentPosition; // 현재 타일의 위치
@@ -102,6 +106,10 @@ public class Stage : MonoBehaviour
             else if (cameraPlateIndices?.indices != null && cameraPlateIndices.indices.Contains(i))
             {
                 GenerateCameraTile(i);
+            }
+            else if (telePortPlateIndices?.indices != null && telePortPlateIndices.indices.Contains(i))
+            {
+                GenerateTeleportTile(i);
             }
             else if (breakPlateIndices?.indices != null && breakPlateIndices.indices.Contains(i))
             {
@@ -184,7 +192,7 @@ public class Stage : MonoBehaviour
             nextDirection = directions[Random.Range(0, directions.Length)];
         } while (nextDirection == -lastDirection);
 
-        // 카메라 타일이 짝수 번째 배열에 해당하는 경우 이동 거리 2
+        // 카메라 타일이 홀수 번째 배열에 해당하는 경우 이동 거리 2
         int plateIndex = cameraPlateIndices.indices.IndexOf(index);
         if (plateIndex >= 0 && plateIndex % 2 == 1)
         {
@@ -204,7 +212,40 @@ public class Stage : MonoBehaviour
         lastDirection = nextDirection;
     }
 
+    // 텔레포트 타일을 생성하는 메서드
+    void GenerateTeleportTile(int index)
+    {
+        Vector3 nextDirection;
+        do
+        {
+            nextDirection = directions[Random.Range(0, directions.Length)];
+        } while (nextDirection == -lastDirection);
 
+        // 텔레포트 타일이 홀수 번째 배열에 해당하는 경우 이동 거리 2
+        int plateIndex = telePortPlateIndices.indices.IndexOf(index);
+
+        if (plateIndex >= 0 && plateIndex % 2 == 1)
+        {
+            currentPosition += nextDirection * 3f;
+        }
+        else
+        {
+            currentPosition += nextDirection;
+        }
+        currentPosition.y = -0.6f;
+
+        GameObject teleportTile = Instantiate(telePortPlate, currentPosition, Quaternion.Euler(0f, -90f, 0f));
+        teleportTile.transform.parent = this.transform;
+
+        // TeleportPlate 스크립트에 고유 인덱스 부여
+        TeleportPlate teleportPlateScript = teleportTile.GetComponent<TeleportPlate>();
+        teleportPlateScript.teleportIndex = telePortPlateIndices.indices.IndexOf(index);
+
+        teleportTile.SetActive(false);
+        plates[index] = teleportTile.transform;
+
+        lastDirection = nextDirection;
+    }
     // Goal 타일을 생성하는 메서드
     void GenerateGoalTile(int index)
     {
@@ -281,5 +322,4 @@ public class Stage : MonoBehaviour
         // 다음 타일 위치 조정
         lastDirection = nextDirection;
     }
-
 }

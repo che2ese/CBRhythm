@@ -21,7 +21,7 @@ public class GoalPlate : MonoBehaviour
         {
             endAudio.Play();
             PlayerScript.canPressKey = false;
-            nm.RemoceNote();
+            nm.RemoveNote();
             rs.ShowResult();
         }
     }
