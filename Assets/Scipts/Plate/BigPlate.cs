@@ -7,8 +7,6 @@ public class BigPlate : MonoBehaviour
     public GameObject[] basicPlate; // 기본 타일 배열
     public GameObject[] trapPlates; // 트랩 타일 배열 (2개)
 
-    public bool isBig = false;
-
     // Start is called before the first frame update
     void Start()
     {
