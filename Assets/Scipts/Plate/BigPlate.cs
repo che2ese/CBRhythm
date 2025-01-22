@@ -7,7 +7,6 @@ public class BigPlate : MonoBehaviour
     public GameObject[] basicPlate; // 기본 타일 배열
     public GameObject[] trapPlates; // 트랩 타일 배열 (2개)
 
-    // Start is called before the first frame update
     void Start()
     {
         if (basicPlate.Length < 1 || trapPlates == null || trapPlates.Length < 2)
@@ -37,17 +36,42 @@ public class BigPlate : MonoBehaviour
             secondIndex = Random.Range(0, basicPlate.Length);
         } while (secondIndex == firstIndex);
 
-        // 첫 번째 트랩 위치 설정
-        Vector3 firstPosition = basicPlate[firstIndex].transform.localPosition;
-        firstPosition.y += 4f; // Y축 값만 변경
-        trapPlates[0].transform.localPosition = firstPosition;
+        // 첫 번째 트랩 시작
+        StartCoroutine(DropTrapPlate(trapPlates[0], basicPlate[firstIndex].transform.localPosition));
 
-        // 두 번째 트랩 위치 설정
-        Vector3 secondPosition = basicPlate[secondIndex].transform.localPosition;
-        secondPosition.y += 4f; // Y축 값만 변경
-        trapPlates[1].transform.localPosition = secondPosition;
+        // 두 번째 트랩 시작
+        StartCoroutine(DropTrapPlate(trapPlates[1], basicPlate[secondIndex].transform.localPosition));
+    }
 
-        Debug.Log($"첫 번째 트랩 위치 변경 완료: {firstPosition}");
-        Debug.Log($"두 번째 트랩 위치 변경 완료: {secondPosition}");
+    IEnumerator DropTrapPlate(GameObject trapPlate, Vector3 targetPosition)
+    {
+        // 트랩 타일을 초기 위치(+7)로 설정
+        Vector3 startPosition = targetPosition;
+        startPosition.y += 20f;
+        trapPlate.transform.localPosition = startPosition;
+
+        // 트랩 타일 활성화
+        trapPlate.SetActive(true);
+
+        // 목표 위치 설정(+4)
+        targetPosition.y += 4f;
+
+        // 타일이 목표 위치에 도달할 때까지 빠르게 이동
+        float dropSpeed = 20f; // 떨어지는 속도 설정 (값을 높게 설정)
+
+        while (trapPlate.transform.localPosition.y > targetPosition.y)
+        {
+            trapPlate.transform.localPosition = Vector3.MoveTowards(
+                trapPlate.transform.localPosition,
+                targetPosition,
+                dropSpeed * Time.deltaTime // 빠르게 이동
+            );
+            yield return null;
+        }
+
+        // 정확히 목표 위치에 위치하도록 설정
+        trapPlate.transform.localPosition = targetPosition;
+
+        Debug.Log($"트랩 타일이 목표 위치에 멈췄습니다: {targetPosition}");
     }
 }

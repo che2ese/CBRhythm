@@ -517,7 +517,7 @@ MonoBehaviour:
   - startIndex: 2
     endIndex: 4
   - startIndex: 91
-    endIndex: 97
+    endIndex: 96
   gravityPlate: {fileID: 1518449810206894555, guid: 2b5fdb289f94847f8b4607aa8f21d8dc, type: 3}
   gravityPlateIndices:
     indices: 0a0000001e0000003c00000050000000
@@ -526,7 +526,7 @@ MonoBehaviour:
     indices: 000000000d0000000e000000190000002500000030000000390000003f0000004a000000
   cameraPlate: {fileID: 1518449810206894555, guid: 131ae4a7f3d6c497e9395f6cd2071481, type: 3}
   cameraPlateIndices:
-    indices: 01000000050000005a00000062000000
+    indices: 01000000050000005a00000061000000
   plates: []
 --- !u!1 &176722608
 GameObject:
