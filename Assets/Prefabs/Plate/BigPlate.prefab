@@ -116,6 +116,7 @@ MonoBehaviour:
   trapPlates:
   - {fileID: 503238680110410246}
   - {fileID: 2292704447405256070}
+  isBig: 0
 --- !u!1001 &181803240589117228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,7 +127,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -213,15 +214,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.26666665
+      value: 0.2333333
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.26666665
+      value: 0.2333333
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -296,15 +297,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.26666665
+      value: 0.2333333
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.26666665
+      value: 0.2333333
       objectReference: {fileID: 0}
     - target: {fileID: 4304161362109775095, guid: 64b7fd5103a0d408e83147c0a04e1ea2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -453,7 +454,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -536,7 +537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -619,7 +620,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -702,7 +703,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -780,7 +781,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name
@@ -858,7 +859,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466054864334644664, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: flag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
       propertyPath: m_Name

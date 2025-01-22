@@ -31,7 +31,6 @@ public class TimingManager : MonoBehaviour
 
     private void Start()
     {
-
         timingBoxs = new Vector2[timingRect.Length];
 
         for (int i = 0; i < timingRect.Length; i++)
@@ -64,6 +63,7 @@ public class TimingManager : MonoBehaviour
                     {
                         // 점수 증가
                         sm.IncreaseScore(x);
+
                         // 판떄기 등장
                         stm.ShowNextplate();
                         

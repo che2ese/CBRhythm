@@ -156,8 +156,9 @@ public class Stage : MonoBehaviour
             nextDirection = directions[Random.Range(0, directions.Length)];
         } while (nextDirection == -lastDirection);
 
-        // 카메라 타일이 뒤에 나오는 경우 이동 거리 2
-        if (cameraPlateIndices.indices.IndexOf(index) == cameraPlateIndices.indices.Count - 1)
+        // 카메라 타일이 짝수 번째 배열에 해당하는 경우 이동 거리 2
+        int plateIndex = cameraPlateIndices.indices.IndexOf(index);
+        if (plateIndex >= 0 && plateIndex % 2 == 1)
         {
             currentPosition += nextDirection * 2f;
         }
