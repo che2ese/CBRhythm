@@ -31,6 +31,10 @@ public class Stage : MonoBehaviour
     public GameObject gravityPlate; // 중력 반전 타일 Prefab
     public PlateIndices gravityPlateIndices = new PlateIndices(); // 중력 반전 타일 위치 리스트
 
+    [Header("Break Plate")]
+    public GameObject breakPlate; // 깨지는 타일 Prefab
+    public PlateIndices breakPlateIndices = new PlateIndices(); // 깨지는 타일 위치 리스트
+
     [Header("Camera Plate")]
     public GameObject cameraPlate; // 카메라 전환 타일 Prefab
     public PlateIndices cameraPlateIndices = new PlateIndices(); // 카메라 전환 타일 위치 리스트
@@ -99,6 +103,10 @@ public class Stage : MonoBehaviour
             {
                 GenerateCameraTile(i);
             }
+            else if (breakPlateIndices?.indices != null && breakPlateIndices.indices.Contains(i))
+            {
+                GenerateBreakPlate(i);
+            }
             else
             {
                 GenerateTile(i);
@@ -143,6 +151,26 @@ public class Stage : MonoBehaviour
         gravityTile.transform.parent = this.transform;
         gravityTile.SetActive(false);
         plates[index] = gravityTile.transform;
+
+        lastDirection = nextDirection;
+    }
+
+    // 깨지는 타일을 생성하는 메서드
+    void GenerateBreakPlate(int index)
+    {
+        Vector3 nextDirection;
+        do
+        {
+            nextDirection = directions[Random.Range(0, directions.Length)];
+        } while (nextDirection == -lastDirection);
+
+        currentPosition += nextDirection;
+        currentPosition.y = -0.6f;
+
+        GameObject breakTile = Instantiate(breakPlate, currentPosition, Quaternion.identity);
+        breakTile.transform.parent = this.transform;
+        breakTile.SetActive(false);
+        plates[index] = breakTile.transform;
 
         lastDirection = nextDirection;
     }
