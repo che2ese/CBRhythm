@@ -132,15 +132,15 @@ public class ScoreManager : MonoBehaviour
 
         if (textLength == 1)
         {
-            comboRect.anchoredPosition = new Vector2(-70, comboRect.anchoredPosition.y);
+            comboRect.anchoredPosition = new Vector2(-90, comboRect.anchoredPosition.y);
         }
         else if (textLength == 2)
         {
-            comboRect.anchoredPosition = new Vector2(-90, comboRect.anchoredPosition.y);
+            comboRect.anchoredPosition = new Vector2(-110, comboRect.anchoredPosition.y);
         }
         else if (textLength >= 3)
         {
-            comboRect.anchoredPosition = new Vector2(-100, comboRect.anchoredPosition.y);
+            comboRect.anchoredPosition = new Vector2(-120, comboRect.anchoredPosition.y);
         }
     }
 }
