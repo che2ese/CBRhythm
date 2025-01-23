@@ -56,21 +56,37 @@ public class PlayerScript : MonoBehaviour
         canPressKey = true;
         originPos = transform.position;
     }
+
+    public void Initialized()
+    {
+        transform.position = Vector3.zero;
+        pos = Vector3.zero;
+        realCube.localPosition = Vector3.zero;
+        canMove = true;
+        canPressKey = true;
+        isFalling = false;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        CheckFalling();
-
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
+        if (GameManager.instance.isStartGame)
         {
-            if (canMove && canPressKey && !isFalling)
-            {
-                Calc();
+            CheckFalling();
 
-                if (tm.CheckTiming())
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
+            {
+                if (canMove && canPressKey && !isFalling)
                 {
-                    StartAction();
-                }   
+                    Calc();
+
+                    if (tm.CheckTiming())
+                    {
+                        StartAction();
+                    }
+                }
             }
         }
     }

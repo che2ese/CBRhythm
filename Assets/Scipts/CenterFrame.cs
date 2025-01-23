@@ -6,6 +6,11 @@ public class CenterFrame : MonoBehaviour
 {
     bool musicStart = false;
 
+    public void ResetMusic()
+    {
+        musicStart = false;
+    }
+
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {

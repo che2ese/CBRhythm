@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class Result : MonoBehaviour
 {
@@ -9,13 +10,13 @@ public class Result : MonoBehaviour
     GameObject goUI = null;
 
     [SerializeField]
-    Text[] txtCount = null;
+    TextMeshProUGUI[] txtCount = null;
     [SerializeField]
-    Text txtCoin = null;
+    TextMeshProUGUI txtCoin = null;
     [SerializeField]
-    Text txtScore = null;
+    TextMeshProUGUI txtScore = null;
     [SerializeField]
-    Text txtMaxCombo = null;
+    TextMeshProUGUI txtMaxCombo = null;
 
     ScoreManager sm;
     TimingManager tm;
@@ -28,6 +29,10 @@ public class Result : MonoBehaviour
 
     public void ShowResult()
     {
+        FindAnyObjectByType<CenterFrame>().ResetMusic();
+
+        AudioManager.instance.StopBGM();
+
         goUI.SetActive(true);
 
         for(int i =0; i<txtCount.Length; i++)
@@ -52,5 +57,12 @@ public class Result : MonoBehaviour
         txtScore.text = string.Format("{0:#,##0}", t_currentScore);
         txtMaxCombo.text = string.Format("{0:#,##0}", t_maxCombo);
         txtCoin.text = string.Format("{0:#,##0}", t_coin);
+    }
+
+    public void BtnMainMenu()
+    {
+        goUI.SetActive(false);
+        GameManager.instance.MainMenu();
+        sm.ResetCombo();
     }
 }

@@ -118,4 +118,12 @@ public class TimingManager : MonoBehaviour
     {
         judgeRecord[4]++;
     }
+
+    public void Initialized()
+    {
+        for(int i = 0; i<judgeRecord.Length; i++)
+        {
+            judgeRecord[i] = 0;
+        }
+    }
 }

@@ -31,6 +31,13 @@ public class StatusManager : MonoBehaviour
         nm = FindAnyObjectByType<NoteManager>();
     }
 
+    public void Initialized()
+    {
+        currentHp = maxHp;
+        isDead = false;
+        SettingHPImage();
+    }
+
     public void DecreaseHp(int p_num)
     {
         if (!isBlink)

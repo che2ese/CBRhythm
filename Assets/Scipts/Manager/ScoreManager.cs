@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     // 점수 기능
     [SerializeField]
-    Text score = null;
+    TextMeshProUGUI score = null;
 
     [SerializeField]
     int increaseScore = 10;
@@ -24,7 +25,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     GameObject ComboImage = null;
     [SerializeField]
-    Text ComboTxt = null;
+    TextMeshProUGUI ComboTxt = null;
 
     int currentCumbo = 0;
     int maxCombo = 0;
@@ -49,6 +50,12 @@ public class ScoreManager : MonoBehaviour
 
         ComboTxt.gameObject.SetActive(false);
         ComboImage.SetActive(false);
+    }
+
+    public void Initialized()
+    {
+        currentScore = 0;
+        score.text = "0";
     }
 
     public void IncreaseScore(int judgeState)
