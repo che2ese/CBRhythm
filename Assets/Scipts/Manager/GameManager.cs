@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     StageManager sgm;
     public NoteManager nm;
     Result rs;
+    CameraController cc;
 
     [SerializeField]
     CenterFrame theMusic = null;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         sgm = FindAnyObjectByType<StageManager>();
         nm = FindAnyObjectByType<NoteManager>();
         rs = FindAnyObjectByType<Result>();
+        cc = FindAnyObjectByType<CameraController>();
     }
 
     public void GameStart(int p_songNum, int p_bpm)
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
         sm.Initialized();
         tm.Initialized();
         ps.Initialized();
+        cc.Initialized();
         rs.SetCurrentSong(p_songNum);
 
         if (p_songNum == 10)

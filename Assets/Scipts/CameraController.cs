@@ -30,6 +30,20 @@ public class CameraController : MonoBehaviour
         playerDistance = offset;
         ResetGravity();
     }
+    public void Initialized()
+    {
+        isGravityReversed = false; // 중력 반전 초기화
+        isCameraReversed = false; // 카메라 반전 초기화
+
+        // 초기 위치와 회전값 설정
+        playerDistance = offset;
+        hitDistance = 0f; // 줌 거리 초기화
+        transform.position = player.position + playerDistance; // 초기 위치 설정
+        transform.rotation = Quaternion.Euler(30f, 45f, 0f); // 초기 회전값 설정
+
+        // 필요 시 추가적인 초기화 작업
+        ResetGravity();
+    }
 
     private void Update()
     {

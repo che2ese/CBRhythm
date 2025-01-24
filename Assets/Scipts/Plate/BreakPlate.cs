@@ -44,8 +44,8 @@ public class BreakPlate : MonoBehaviour
     IEnumerator DropPlate()
     {
 
-        Debug.Log((float)(24f/bpm));
-        yield return new WaitForSeconds((float)(24f/bpm)); // 2초 대기
+        Debug.Log((float)((24f / bpm) * 1.5f));
+        yield return new WaitForSeconds((float)((24f / bpm) * 1.5f)); // 2초 대기
 
         rb.isKinematic = false; // 중력 활성화
 
@@ -54,7 +54,7 @@ public class BreakPlate : MonoBehaviour
 
     IEnumerator ResetPlate()
     {
-        yield return new WaitForSeconds(2f); // 2초 대기
+        yield return new WaitForSeconds(3f); // 2초 대기
         // Rigidbody 초기화
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;

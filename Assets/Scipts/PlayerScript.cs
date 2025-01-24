@@ -92,37 +92,53 @@ public class PlayerScript : MonoBehaviour
     }
     public void MoveUp()
     {
-        if (canMove && canPressKey && !isFalling)
+        if (GameManager.instance.isStartGame)
         {
-            posDir = Vector3.forward; // 위쪽
-            ExecuteMovement();
+            CheckFalling();
+            if (canMove && canPressKey && !isFalling)
+            {
+                posDir = Vector3.forward; // 위쪽
+                ExecuteMovement();
+            }
         }
     }
 
     public void MoveDown()
     {
-        if (canMove && canPressKey && !isFalling)
+        if (GameManager.instance.isStartGame)
         {
-            posDir = Vector3.back; // 아래쪽
-            ExecuteMovement();
+            CheckFalling();
+            if (canMove && canPressKey && !isFalling)
+            {
+                posDir = Vector3.back; // 위쪽
+                ExecuteMovement();
+            }
         }
     }
 
     public void MoveLeft()
     {
-        if (canMove && canPressKey && !isFalling)
+        if (GameManager.instance.isStartGame)
         {
-            posDir = Vector3.left; // 왼쪽
-            ExecuteMovement();
+            CheckFalling();
+            if (canMove && canPressKey && !isFalling)
+            {
+                posDir = Vector3.left; // 위쪽
+                ExecuteMovement();
+            }
         }
     }
 
     public void MoveRight()
     {
-        if (canMove && canPressKey && !isFalling)
+        if (GameManager.instance.isStartGame)
         {
-            posDir = Vector3.right; // 오른쪽
-            ExecuteMovement();
+            CheckFalling();
+            if (canMove && canPressKey && !isFalling)
+            {
+                posDir = Vector3.right; // 위쪽
+                ExecuteMovement();
+            }
         }
     }
 
