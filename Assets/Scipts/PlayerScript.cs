@@ -90,6 +90,59 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+    public void MoveUp()
+    {
+        if (canMove && canPressKey && !isFalling)
+        {
+            posDir = Vector3.forward; // 위쪽
+            ExecuteMovement();
+        }
+    }
+
+    public void MoveDown()
+    {
+        if (canMove && canPressKey && !isFalling)
+        {
+            posDir = Vector3.back; // 아래쪽
+            ExecuteMovement();
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if (canMove && canPressKey && !isFalling)
+        {
+            posDir = Vector3.left; // 왼쪽
+            ExecuteMovement();
+        }
+    }
+
+    public void MoveRight()
+    {
+        if (canMove && canPressKey && !isFalling)
+        {
+            posDir = Vector3.right; // 오른쪽
+            ExecuteMovement();
+        }
+    }
+
+    private void ExecuteMovement()
+    {
+        // 이동 목표 계산
+        pos = transform.position + new Vector3(posDir.z, 0, -posDir.x);
+
+        // 회전 목표 계산
+        rotDir = new Vector3(posDir.x, 0f, posDir.z);
+        fakeCube.RotateAround(transform.position, rotDir, spinSpeed);
+        rot = fakeCube.rotation;
+
+        // 타이밍 체크 후 동작
+        if (tm.CheckTiming())
+        {
+            StartAction();
+        }
+    }
+
     void Calc()
     {
         // 방향 계산
