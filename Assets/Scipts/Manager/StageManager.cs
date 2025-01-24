@@ -6,6 +6,8 @@ public class StageManager : MonoBehaviour
 {
     [SerializeField]
     GameObject stage = null;
+    GameObject currentStage;
+
     Transform[] stageplates;
 
     [SerializeField]
@@ -16,10 +18,21 @@ public class StageManager : MonoBehaviour
     int stepCount = 0;
     int totalPlateCount = 0;
 
-    void Start()
+    public void RemoveStage()
     {
+        if(currentStage != null)
+        {
+            Destroy(currentStage);
+        }
+    }
+
+    public void SettingStage()
+    {
+        stepCount = 0;
+
+        currentStage = Instantiate(stage, Vector3.zero, Quaternion.identity);
         // Stage의 plates 배열 초기화가 완료될 때까지 대기
-        Stage stageComponent = stage.GetComponent<Stage>();
+        Stage stageComponent = currentStage.GetComponent<Stage>();
         if (stageComponent.plates == null || stageComponent.plates.Length == 0)
         {
             Debug.LogWarning("Stage 초기화가 완료되지 않았습니다.");

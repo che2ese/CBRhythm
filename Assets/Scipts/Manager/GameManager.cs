@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
     TimingManager tm;
     StatusManager stm;
     PlayerScript ps;
+    StageManager sgm;
+    NoteManager nm;
+
+    [SerializeField]
+    CenterFrame theMusic = null;
 
 
     // Start is called before the first frame update
@@ -29,22 +34,42 @@ public class GameManager : MonoBehaviour
         tm = FindAnyObjectByType<TimingManager>();
         stm = FindAnyObjectByType<StatusManager>();
         ps = FindAnyObjectByType<PlayerScript>();
+        sgm = FindAnyObjectByType<StageManager>();
+        nm = FindAnyObjectByType<NoteManager>();
     }
 
-    public void GameStart()
+    public void GameStart(int p_songNum, int p_bpm)
     {
-        for(int i = 0; i < goGameUI.Length; i++)
+        for (int i = 0; i < goGameUI.Length; i++)
         {
             goGameUI[i].SetActive(true);
         }
+
+        sgm.RemoveStage();
+
+        // Stage 초기화 완료 여부 확인
+        if (sgm != null)
+        {
+            sgm.SettingStage();
+        }
+        else
+        {
+            Debug.LogWarning("StageManager가 초기화되지 않았습니다.");
+        }
+
+        theMusic.bgmName = "BGM" + p_songNum;
+        nm.bpm = p_bpm;
         sm.ResetCombo();
         sm.Initialized();
         tm.Initialized();
         stm.Initialized();
         ps.Initialized();
 
+        AudioManager.instance.StopBGM();
+
         isStartGame = true;
     }
+
     public void MainMenu()
     {
         for (int i = 0; i < goGameUI.Length; i++)

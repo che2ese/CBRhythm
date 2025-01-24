@@ -77,10 +77,7 @@ public class Stage : MonoBehaviour
 
         // 이전 방향 초기화
         lastDirection = Vector3.zero;
-    }
 
-    private void Start()
-    {
         CreateTiles();
     }
 
