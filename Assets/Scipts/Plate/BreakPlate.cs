@@ -7,8 +7,14 @@ public class BreakPlate : MonoBehaviour
     private Vector3 initialPosition; // 초기 위치 저장
     private Quaternion initialRotation; // 초기 회전 저장
 
+    int bpm;
+
     private void Start()
     {
+        // GameManager에서 bpm 값을 가져옴
+        bpm = GameManager.instance.nm.bpm;
+        Debug.Log(bpm);
+
         // Rigidbody를 미리 가져오기
         rb = GetComponent<Rigidbody>();
 
@@ -37,7 +43,9 @@ public class BreakPlate : MonoBehaviour
 
     IEnumerator DropPlate()
     {
-        yield return new WaitForSeconds(0.2f); // 2초 대기
+
+        Debug.Log((float)(24f/bpm));
+        yield return new WaitForSeconds((float)(24f/bpm)); // 2초 대기
 
         rb.isKinematic = false; // 중력 활성화
 

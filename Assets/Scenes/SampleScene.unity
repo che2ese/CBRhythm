@@ -1807,6 +1807,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5fa700d66a252b648a0312ced87e9ed1, type: 3}
   - name: BGM9
     clip: {fileID: 8300000, guid: 942c7ea153ff4584aadf0449f9e1f43e, type: 3}
+  - name: BGM10
+    clip: {fileID: 8300000, guid: d475df1357eb5614a9acc45b58bde9eb, type: 3}
   bgmPlayer: {fileID: 402881790}
   sfxPlayer:
   - {fileID: 1420446617}
@@ -2245,7 +2247,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295cc27caf0ea4517937eef185fad23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: {fileID: 1153159159378639922, guid: 02a6a450a276f42b880877eb7e04700a, type: 3}
+  stageArray:
+  - {fileID: 1153159159378639922, guid: 02a6a450a276f42b880877eb7e04700a, type: 3}
+  - {fileID: 1153159159378639922, guid: 09899c3a7c8d84d138b353f6c962c22f, type: 3}
+  - {fileID: 1153159159378639922, guid: 6329c1eea3aea492d8d479e412b8b383, type: 3}
+  - {fileID: 1153159159378639922, guid: 02a6a450a276f42b880877eb7e04700a, type: 3}
+  - {fileID: 1153159159378639922, guid: 09899c3a7c8d84d138b353f6c962c22f, type: 3}
+  - {fileID: 1153159159378639922, guid: 6329c1eea3aea492d8d479e412b8b383, type: 3}
+  - {fileID: 1153159159378639922, guid: 02a6a450a276f42b880877eb7e04700a, type: 3}
+  - {fileID: 1153159159378639922, guid: 09899c3a7c8d84d138b353f6c962c22f, type: 3}
+  - {fileID: 1153159159378639922, guid: 6329c1eea3aea492d8d479e412b8b383, type: 3}
+  - {fileID: 1153159159378639922, guid: 02a6a450a276f42b880877eb7e04700a, type: 3}
+  - {fileID: 1153159159378639922, guid: 5dd4107e4483849fa8a8b6106ecf8605, type: 3}
   offsetY: -5
   plateSpeed: 10
 --- !u!1 &605518171
@@ -3416,6 +3429,7 @@ MonoBehaviour:
   - {fileID: 605518171}
   - {fileID: 659513207}
   goTitleUI: {fileID: 154664436}
+  nm: {fileID: 0}
   theMusic: {fileID: 1875120278}
 --- !u!4 &785237872
 Transform:
@@ -7593,7 +7607,7 @@ MonoBehaviour:
     bpm: 100
     sprite: {fileID: 21300000, guid: 3bdb5aa3db4096941b9a3f96b234cd3d, type: 3}
   - level: Normal
-    bpm: 90
+    bpm: 120
     sprite: {fileID: 21300000, guid: 54a1327d291d5f14fa446eb53e079e15, type: 3}
   - level: Normal
     bpm: 110
@@ -7602,14 +7616,17 @@ MonoBehaviour:
     bpm: 120
     sprite: {fileID: 21300000, guid: ec76e1207731f6f4e90307c4b883e615, type: 3}
   - level: Hard
-    bpm: 120
+    bpm: 130
     sprite: {fileID: 21300000, guid: 9b1c0ba843e47fc4392b1984bd241ecd, type: 3}
   - level: Hard
-    bpm: 120
+    bpm: 140
     sprite: {fileID: 21300000, guid: 04653f4da6b19ce46b615526862962f0, type: 3}
   - level: Hard
     bpm: 150
     sprite: {fileID: 21300000, guid: 5e3fc7d114734a740b4e1e5d04411bed, type: 3}
+  - level: Infinite
+    bpm: 150
+    sprite: {fileID: 21300000, guid: 94c94b52dc4145a45a2da9708e473f6b, type: 3}
   txtLevel: {fileID: 2069749805}
   imgDisk: {fileID: 1031472694}
   titleMenu: {fileID: 154664436}

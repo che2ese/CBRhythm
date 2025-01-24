@@ -5,7 +5,7 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject stage = null;
+    GameObject[] stageArray = null;
     GameObject currentStage;
 
     Transform[] stageplates;
@@ -26,11 +26,11 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    public void SettingStage()
+    public void SettingStage(int p_songNum)
     {
         stepCount = 0;
 
-        currentStage = Instantiate(stage, Vector3.zero, Quaternion.identity);
+        currentStage = Instantiate(stageArray[p_songNum], Vector3.zero, Quaternion.identity);
         // Stage의 plates 배열 초기화가 완료될 때까지 대기
         Stage stageComponent = currentStage.GetComponent<Stage>();
         if (stageComponent.plates == null || stageComponent.plates.Length == 0)

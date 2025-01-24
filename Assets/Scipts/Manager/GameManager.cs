@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     StatusManager stm;
     PlayerScript ps;
     StageManager sgm;
-    NoteManager nm;
+    public NoteManager nm;
 
     [SerializeField]
     CenterFrame theMusic = null;
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         // Stage 초기화 완료 여부 확인
         if (sgm != null)
         {
-            sgm.SettingStage();
+            sgm.SettingStage(p_songNum);
         }
         else
         {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         ps.Initialized();
 
         AudioManager.instance.StopBGM();
-
+            
         isStartGame = true;
     }
 
