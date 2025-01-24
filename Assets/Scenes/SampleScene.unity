@@ -1871,6 +1871,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkSpeed: 0.1
   blinkCount: 10
+  maxHp: 3
+  currentHp: 3
   hpImage:
   - {fileID: 1232292252}
   - {fileID: 1507536216}
@@ -3428,7 +3430,7 @@ MonoBehaviour:
   - {fileID: 297552057}
   - {fileID: 605518171}
   - {fileID: 659513207}
-  goTitleUI: {fileID: 154664436}
+  goTitleUI: {fileID: 1705778351}
   nm: {fileID: 0}
   theMusic: {fileID: 1875120278}
 --- !u!4 &785237872
@@ -3872,6 +3874,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959099413}
   m_CullTransparentMesh: 1
+--- !u!1 &961585040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961585041}
+  - component: {fileID: 961585042}
+  m_Layer: 0
+  m_Name: DataBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &961585041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961585040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961585042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961585040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b0bd79a2f5146f9bbc53eca6f36b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -7625,9 +7672,10 @@ MonoBehaviour:
     bpm: 150
     sprite: {fileID: 21300000, guid: 5e3fc7d114734a740b4e1e5d04411bed, type: 3}
   - level: Infinite
-    bpm: 150
+    bpm: 130
     sprite: {fileID: 21300000, guid: 94c94b52dc4145a45a2da9708e473f6b, type: 3}
   txtLevel: {fileID: 2069749805}
+  txtSongScore: {fileID: 2142080606}
   imgDisk: {fileID: 1031472694}
   titleMenu: {fileID: 154664436}
 --- !u!1 &1742874992
@@ -9382,3 +9430,4 @@ SceneRoots:
   - {fileID: 657853083}
   - {fileID: 785237872}
   - {fileID: 357332102}
+  - {fileID: 961585041}

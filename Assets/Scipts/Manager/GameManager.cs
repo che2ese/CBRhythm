@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     PlayerScript ps;
     StageManager sgm;
     public NoteManager nm;
+    Result rs;
 
     [SerializeField]
     CenterFrame theMusic = null;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         ps = FindAnyObjectByType<PlayerScript>();
         sgm = FindAnyObjectByType<StageManager>();
         nm = FindAnyObjectByType<NoteManager>();
+        rs = FindAnyObjectByType<Result>();
     }
 
     public void GameStart(int p_songNum, int p_bpm)
@@ -62,8 +64,17 @@ public class GameManager : MonoBehaviour
         sm.ResetCombo();
         sm.Initialized();
         tm.Initialized();
-        stm.Initialized();
         ps.Initialized();
+        rs.SetCurrentSong(p_songNum);
+
+        if (p_songNum == 10)
+        {
+            stm.Initialized(1);
+        }
+        else
+        {
+            stm.Initialized(3);
+        }
 
         AudioManager.instance.StopBGM();
             

@@ -19,6 +19,8 @@ public class StageMenu : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI txtLevel = null;
     [SerializeField]
+    TextMeshProUGUI txtSongScore = null;
+    [SerializeField]
     Image imgDisk = null;
 
     [SerializeField]
@@ -26,8 +28,14 @@ public class StageMenu : MonoBehaviour
 
     int currentSong = 0;
 
-    private void Start()
+    DataBaseManager dm;
+
+    private void OnEnable()
     {
+        if(dm == null)
+        {
+            dm = FindAnyObjectByType<DataBaseManager>();
+        }
         SettingSong();
     }
     public void BtnNext()
@@ -52,7 +60,7 @@ public class StageMenu : MonoBehaviour
     {
         txtLevel.text = songList[currentSong].level;
         imgDisk.sprite = songList[currentSong].sprite;
-
+        txtSongScore.text = string.Format("{0:#,##0}", dm.score[currentSong]);
         AudioManager.instance.PlayBGM("BGM" + currentSong);
     }
     public void BtnBack()

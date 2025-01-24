@@ -14,8 +14,8 @@ public class StatusManager : MonoBehaviour
 
     bool isDead = false;
 
-    int maxHp = 3;
-    int currentHp = 3;
+    public int maxHp = 3;
+    public int currentHp = 3;
 
     [SerializeField]
     Image[] hpImage = null;
@@ -31,9 +31,10 @@ public class StatusManager : MonoBehaviour
         nm = FindAnyObjectByType<NoteManager>();
     }
 
-    public void Initialized()
+    public void Initialized(int hp)
     {
-        currentHp = maxHp;
+        currentHp = hp;
+        maxHp = hp;
         isDead = false;
         SettingHPImage();
     }
