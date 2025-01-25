@@ -44,8 +44,8 @@ public class BreakPlate : MonoBehaviour
     IEnumerator DropPlate()
     {
 
-        Debug.Log((float)((24f / bpm) * 1.5f));
-        yield return new WaitForSeconds((float)((24f / bpm) * 1.5f)); // 2초 대기
+        Debug.Log((float)((24f / bpm) * 2f));
+        yield return new WaitForSeconds((float)((24f / bpm) * 2f)); // 2초 대기
 
         rb.isKinematic = false; // 중력 활성화
 

@@ -71,7 +71,5 @@ public class BigPlate : MonoBehaviour
 
         // 정확히 목표 위치에 위치하도록 설정
         trapPlate.transform.localPosition = targetPosition;
-
-        Debug.Log($"트랩 타일이 목표 위치에 멈췄습니다: {targetPosition}");
     }
 }

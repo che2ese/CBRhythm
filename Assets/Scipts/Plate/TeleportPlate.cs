@@ -1,24 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TeleportPlate : MonoBehaviour
 {
-    public static List<TeleportPlate> teleportPlates = new List<TeleportPlate>(); // 텔레포트 타일을 저장하는 리스트
     public int teleportIndex; // 텔레포트 타일의 고유 인덱스
-
-    private static bool isTeleporting = false; // 순간이동 중 상태 플래그
+    public static bool isTeleporting = false; // 순간이동 중 여부 플래그
+    private Transform[] teleportTileTransforms; // Stage에서 가져온 텔레포트 타일 Transform 배열
 
     private void Start()
     {
-        // TeleportPlate를 리스트에 추가
-        teleportPlates.Add(this);
-    }
-
-    private void OnDestroy()
-    {
-        // 삭제 시 리스트에서 제거
-        teleportPlates.Remove(this);
+        // Stage 스크립트에서 텔레포트 타일 Transform 배열 가져오기
+        Stage stage = FindObjectOfType<Stage>();
+        if (stage != null)
+        {
+            teleportTileTransforms = stage.teleportTileTransforms;
+        }
+        else
+        {
+            Debug.LogError("Stage 스크립트를 찾을 수 없습니다!");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,10 +39,6 @@ public class TeleportPlate : MonoBehaviour
                 isTeleporting = true; // 순간이동 시작 플래그 설정
                 TeleportPlayerToNextOddTile(player);
             }
-            else
-            {
-                Debug.Log("홀수 텔레포트 타일: 도착지입니다. 아무 동작도 하지 않음.");
-            }
         }
     }
 
@@ -50,27 +46,33 @@ public class TeleportPlate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            AudioManager.instance.PlaySFX("Teleport");
-            // 충돌 범위에서 벗어나면 순간이동 플래그 초기화
-            isTeleporting = false;
+            isTeleporting = false; // 충돌 범위에서 벗어나면 순간이동 플래그 초기화
         }
     }
 
-    void TeleportPlayerToNextOddTile(PlayerScript player)
+    private void TeleportPlayerToNextOddTile(PlayerScript player)
     {
-        // 현재 타일의 다음 홀수 타일을 찾기
-        for (int i = teleportIndex + 1; i < teleportPlates.Count; i++)
+        if (teleportTileTransforms == null || teleportTileTransforms.Length == 0)
         {
-            if (teleportPlates[i].teleportIndex % 2 != 0) // 홀수 타일인지 확인
+            Debug.LogWarning("TeleportTileTransforms 배열이 비어 있습니다!");
+            return;
+        }
+
+        // 다음 홀수 타일을 찾기
+        for (int i = teleportIndex + 1; i < teleportTileTransforms.Length; i++)
+        {
+            TeleportPlate nextTeleportPlate = teleportTileTransforms[i].GetComponent<TeleportPlate>();
+
+            if (nextTeleportPlate != null && nextTeleportPlate.teleportIndex % 2 != 0) // 홀수 타일인지 확인
             {
-                Vector3 targetPosition = teleportPlates[i].transform.position;
-                Vector3 realCubeLocalPosition = player.realCube.localPosition;
+                Vector3 targetPosition = teleportTileTransforms[i].position;
 
-                // 플레이어의 위치 변경
-                player.transform.position = new Vector3(targetPosition.x, player.transform.position.y, targetPosition.z);
-                player.realCube.localPosition = Vector3.zero; // realCube 초기화
+                targetPosition.y = 0; // y 좌표를 항상 0으로 설정
 
-                Debug.Log($"플레이어가 타일 {teleportIndex}에서 홀수 타일 {teleportPlates[i].teleportIndex}로 이동했습니다.");
+                // 강제 이동 (즉시 이동)
+                player.TeleportTo(targetPosition);
+
+                Debug.Log($"플레이어가 타일 {teleportIndex}에서 홀수 타일 {nextTeleportPlate.teleportIndex}로 이동했습니다.");
                 return;
             }
         }

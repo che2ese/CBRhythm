@@ -42,6 +42,7 @@ public class Stage : MonoBehaviour
     [Header("Teleport Plate")]
     public GameObject telePortPlate; // 텔레포트 타일 Prefab
     public PlateIndices telePortPlateIndices = new PlateIndices(); // 텔레포트 타일 위치 리스트
+    public Transform[] teleportTileTransforms; // 텔레포트 타일 Transform 배열 (Public으로 설정)
 
     public Transform[] plates; // 생성된 타일 Transform 배열 (비활성화된 상태로 저장됨)
 
@@ -61,11 +62,6 @@ public class Stage : MonoBehaviour
         // 초기 타일 오브젝트가 존재하는지 확인
         if (initialTileObjects.Length > 0)
         {
-            for (int i = 0; i < initialTileObjects.Length; i++)
-            {
-                Debug.Log($"초기 타일 {i + 1} 위치: {initialTileObjects[i].transform.position}");
-            }
-
             // 마지막 초기 타일의 위치를 현재 위치로 설정
             currentPosition = initialTileObjects[initialTileObjects.Length - 1].transform.position;
         }
@@ -80,7 +76,32 @@ public class Stage : MonoBehaviour
 
         CreateTiles();
     }
+    void Start()
+    {
+        // CreateTiles가 끝난 후 텔레포트 타일의 Transform 배열을 생성
+        StartCoroutine(CollectTeleportTileTransforms());
+    }
+    // 텔레포트 타일 Transform을 수집하는 코루틴
+    IEnumerator CollectTeleportTileTransforms()
+    {
+        // CreateTiles 함수가 완전히 실행될 때까지 대기
+        yield return new WaitForEndOfFrame();
 
+        // 텔레포트 타일 Transform 배열 생성
+        List<Transform> teleportTileList = new List<Transform>();
+
+        foreach (int index in telePortPlateIndices.indices)
+        {
+            if (plates[index] != null)
+            {
+                teleportTileList.Add(plates[index]);
+            }
+        }
+
+        teleportTileTransforms = teleportTileList.ToArray();
+
+        Debug.Log($"텔레포트 타일 수집 완료: {teleportTileTransforms.Length}개");
+    }
     void CreateTiles()
     {
         if (!Application.isPlaying)

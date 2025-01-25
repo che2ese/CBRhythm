@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void MoveUp()
     {
-        if (GameManager.instance.isStartGame)
+        if (GameManager.instance.isStartGame && !TeleportPlate.isTeleporting)
         {
             CheckFalling();
             if (canMove && canPressKey && !isFalling)
@@ -105,12 +105,12 @@ public class PlayerScript : MonoBehaviour
 
     public void MoveDown()
     {
-        if (GameManager.instance.isStartGame)
+        if (GameManager.instance.isStartGame && !TeleportPlate.isTeleporting)
         {
             CheckFalling();
             if (canMove && canPressKey && !isFalling)
             {
-                posDir = Vector3.back; // 위쪽
+                posDir = Vector3.back; // 아래쪽
                 ExecuteMovement();
             }
         }
@@ -118,12 +118,12 @@ public class PlayerScript : MonoBehaviour
 
     public void MoveLeft()
     {
-        if (GameManager.instance.isStartGame)
+        if (GameManager.instance.isStartGame && !TeleportPlate.isTeleporting)
         {
             CheckFalling();
             if (canMove && canPressKey && !isFalling)
             {
-                posDir = Vector3.left; // 위쪽
+                posDir = Vector3.left; // 왼쪽
                 ExecuteMovement();
             }
         }
@@ -131,16 +131,17 @@ public class PlayerScript : MonoBehaviour
 
     public void MoveRight()
     {
-        if (GameManager.instance.isStartGame)
+        if (GameManager.instance.isStartGame && !TeleportPlate.isTeleporting)
         {
             CheckFalling();
             if (canMove && canPressKey && !isFalling)
             {
-                posDir = Vector3.right; // 위쪽
+                posDir = Vector3.right; // 오른쪽
                 ExecuteMovement();
             }
         }
     }
+
 
     private void ExecuteMovement()
     {
@@ -254,4 +255,20 @@ public class PlayerScript : MonoBehaviour
             realCube.localPosition = new Vector3(0, 0, 0);
         }
     }
+    // 강제 이동 메서드
+    public void TeleportTo(Vector3 targetPosition)
+    {
+        // 이동 동작 중지
+        StopAllCoroutines();
+
+        // 즉시 위치 변경
+        transform.position = targetPosition;
+
+        // 강제 이동 후 상태 초기화
+        realCube.localPosition = Vector3.zero;
+        canMove = true;
+        canPressKey = true;
+        Debug.Log($"플레이어가 강제로 {targetPosition}로 이동했습니다.");
+    }
+
 }
