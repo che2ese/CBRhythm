@@ -7,6 +7,13 @@ public class TeleportPlate : MonoBehaviour
     public static bool isTeleporting = false; // 순간이동 중 여부 플래그
     private Transform[] teleportTileTransforms; // Stage에서 가져온 텔레포트 타일 Transform 배열
 
+    StageManager stm;
+
+    private void Awake()
+    {
+        stm = FindAnyObjectByType<StageManager>();
+    }
+
     private void Start()
     {
         // Stage 스크립트에서 텔레포트 타일 Transform 배열 가져오기
@@ -38,6 +45,7 @@ public class TeleportPlate : MonoBehaviour
             {
                 isTeleporting = true; // 순간이동 시작 플래그 설정
                 TeleportPlayerToNextOddTile(player);
+                stm.ShowNextplate();
             }
         }
     }

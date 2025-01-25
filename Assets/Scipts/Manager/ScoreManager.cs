@@ -80,6 +80,8 @@ public class ScoreManager : MonoBehaviour
 
     public int GetCurrentScore()
     {
+        GoalPlate gp = FindAnyObjectByType<GoalPlate>();
+        currentScore += gp.bonus;
         return currentScore;
     }
 

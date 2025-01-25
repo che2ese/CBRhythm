@@ -8,6 +8,9 @@ public class GoalPlate : MonoBehaviour
     NoteManager nm;
     Result rs;
     ScoreManager sm;
+    StatusManager stm;
+
+    public int bonus = 0;
 
     private void Awake()
     {
@@ -15,6 +18,12 @@ public class GoalPlate : MonoBehaviour
         nm = FindAnyObjectByType<NoteManager>();
         rs = FindAnyObjectByType<Result>();
         sm = FindAnyObjectByType<ScoreManager>();
+        stm = FindAnyObjectByType<StatusManager>();
+    }
+
+    private void Start()
+    {
+        bonus = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,6 +35,10 @@ public class GoalPlate : MonoBehaviour
 
             // 노트 제거
             nm.RemoveNote();
+
+            bonus += stm.currentHp * 500;
+
+            Debug.Log(bonus);
 
             // 결과 표시
             rs.ShowResult();

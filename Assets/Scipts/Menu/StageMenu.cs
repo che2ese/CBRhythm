@@ -11,7 +11,6 @@ public class Song
     public int bpm;
     public Sprite sprite;
 }
-
 public class StageMenu : MonoBehaviour
 {
     [SerializeField]
@@ -25,6 +24,9 @@ public class StageMenu : MonoBehaviour
 
     [SerializeField]
     GameObject titleMenu = null;
+
+    [SerializeField]
+    GameObject resultMenu = null;
 
     int currentSong = 0;
 
@@ -65,15 +67,21 @@ public class StageMenu : MonoBehaviour
     }
     public void BtnBack()
     {
+        AudioManager.instance.PlaySFX("Clap");
         titleMenu.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
     public void BtnPlay()
     {
+        AudioManager.instance.PlaySFX("Clap");
+        if (resultMenu.activeSelf)
+            resultMenu.SetActive(false);
+
         int t_bpm = songList[currentSong].bpm;
 
         GameManager.instance.GameStart(currentSong, t_bpm);
+
         this.gameObject.SetActive(false);
     }
 }

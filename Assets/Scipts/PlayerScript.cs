@@ -32,6 +32,7 @@ public class PlayerScript : MonoBehaviour
     [Header("State")]
     bool canMove = true;
     bool isFalling = false;
+    public bool isBig = false;
 
     [SerializeField]
     Transform fakeCube = null;
@@ -43,6 +44,7 @@ public class PlayerScript : MonoBehaviour
     CameraController cc;
     Rigidbody rb;
     StatusManager sm;
+    CubeTrail ct;
 
     private void Awake()
     {
@@ -50,6 +52,7 @@ public class PlayerScript : MonoBehaviour
         cc = FindAnyObjectByType<CameraController>();
         sm = FindAnyObjectByType<StatusManager>();
         rb = GetComponentInChildren<Rigidbody>();
+        ct = FindAnyObjectByType<CubeTrail>();
     }
     private void Start()
     {
@@ -157,7 +160,15 @@ public class PlayerScript : MonoBehaviour
         if (tm.CheckTiming())
         {
             StartAction();
+            ct.isTrailing = true;
+            StartCoroutine(ct.SpawnTrail());
+            StartCoroutine(EndTrail());
         }
+    }
+    IEnumerator EndTrail()
+    {
+        yield return new WaitForFixedUpdate();
+        ct.isTrailing = false;
     }
 
     void Calc()

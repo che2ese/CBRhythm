@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1518449810206894555, guid: 7b7122731f08b4cdda3b9021268367fe, type: 3}
   goalPlate: {fileID: 1518449810206894555, guid: 8e108a150b6f045f4b6f7ce404b86634, type: 3}
-  numberOfTiles: 80
+  numberOfTiles: 120
   initialTileObjects:
   - {fileID: 7988938342950482952}
   - {fileID: 5474719549129548833}
@@ -80,6 +80,7 @@ MonoBehaviour:
   telePortPlate: {fileID: 1518449810206894555, guid: b1dd21e6982fb4d7694a2fd716ef91a2, type: 3}
   telePortPlateIndices:
     indices: 00000000010000000f0000001000000023000000240000003f0000004000000050000000510000005c0000005d0000005f0000006000000063000000640000007500000076000000
+  teleportTileTransforms: []
   plates: []
 --- !u!1001 &2908976023127970219
 PrefabInstance:

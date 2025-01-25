@@ -7,7 +7,7 @@ public class BreakPlate : MonoBehaviour
     private Vector3 initialPosition; // 초기 위치 저장
     private Quaternion initialRotation; // 초기 회전 저장
 
-    int bpm;
+    float bpm;
 
     private void Start()
     {

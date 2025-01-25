@@ -7,6 +7,14 @@ public class BigPlate : MonoBehaviour
     public GameObject[] basicPlate; // 기본 타일 배열
     public GameObject[] trapPlates; // 트랩 타일 배열 (2개)
 
+    PlayerScript ps;
+    StageManager stm;
+
+    private void Awake()
+    {
+        ps = FindAnyObjectByType<PlayerScript>();
+        stm = FindAnyObjectByType<StageManager>();
+    }
     void Start()
     {
         if (basicPlate.Length < 1 || trapPlates == null || trapPlates.Length < 2)
@@ -71,5 +79,20 @@ public class BigPlate : MonoBehaviour
 
         // 정확히 목표 위치에 위치하도록 설정
         trapPlate.transform.localPosition = targetPosition;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ps.isBig = true;
+            stm.ShowNextplate();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ps.isBig = false;
+        }
     }
 }

@@ -52,6 +52,9 @@ public class StageManager : MonoBehaviour
 
     public void ShowNextplate()
     {
+        PlayerScript ps = FindAnyObjectByType<PlayerScript>();
+        if (ps.isBig)
+            return;
         if (stepCount < totalPlateCount)
             StartCoroutine(MovePlateCo(stepCount++));
     }

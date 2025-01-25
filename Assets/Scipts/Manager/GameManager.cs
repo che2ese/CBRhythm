@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
     public NoteManager nm;
     Result rs;
     CameraController cc;
+    UIManager um;
 
     [SerializeField]
     CenterFrame theMusic = null;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         nm = FindAnyObjectByType<NoteManager>();
         rs = FindAnyObjectByType<Result>();
         cc = FindAnyObjectByType<CameraController>();
+        um = FindAnyObjectByType<UIManager>();
     }
 
     public void GameStart(int p_songNum, int p_bpm)
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         tm.Initialized();
         ps.Initialized();
         cc.Initialized();
+        um.Initialized();
         rs.SetCurrentSong(p_songNum);
 
         if (p_songNum == 10)
@@ -91,5 +93,10 @@ public class GameManager : MonoBehaviour
             goGameUI[i].SetActive(false);
         }
         goTitleUI.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
