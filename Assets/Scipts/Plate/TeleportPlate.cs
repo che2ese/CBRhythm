@@ -9,6 +9,10 @@ public class TeleportPlate : MonoBehaviour
 
     StageManager stm;
 
+    [SerializeField]
+    GameObject teleportEffectPrefab = null; // 생성할 이펙트 프리팹
+    private GameObject activeEffect = null; // 생성된 이펙트의 참조
+
     private void Awake()
     {
         stm = FindAnyObjectByType<StageManager>();
@@ -26,8 +30,35 @@ public class TeleportPlate : MonoBehaviour
         {
             Debug.LogError("Stage 스크립트를 찾을 수 없습니다!");
         }
+        // 텔레포트 타일에 이펙트 생성
+        CreateTeleportEffect();
     }
 
+    private void CreateTeleportEffect()
+    {
+        if (teleportEffectPrefab != null)
+        {
+            // 이펙트를 생성하면서 위치와 회전을 설정
+            Vector3 effectPosition = transform.position;
+            effectPosition.y = -0.2f; // y 좌표를 -0.6f로 설정
+
+            activeEffect = Instantiate(teleportEffectPrefab, effectPosition, transform.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("TeleportEffectPrefab이 설정되지 않았습니다!");
+        }
+    }
+
+    public void ResetTeleportEffect()
+    {
+        // 기존 이펙트를 삭제
+        if (activeEffect != null)
+        {
+            Destroy(activeEffect);
+            activeEffect = null;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (isTeleporting) return; // 이미 순간이동 중이면 중단

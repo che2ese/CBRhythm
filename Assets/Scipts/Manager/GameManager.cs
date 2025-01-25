@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour
 
         sgm.RemoveStage();
 
+        // 모든 TeleportPlate 이펙트를 초기화
+        TeleportPlate[] teleportPlates = FindObjectsOfType<TeleportPlate>();
+        foreach (TeleportPlate plate in teleportPlates)
+        {
+            plate.ResetTeleportEffect();
+        }
+
         // Stage 초기화 완료 여부 확인
         if (sgm != null)
         {

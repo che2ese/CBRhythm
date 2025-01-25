@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flag: 1
+  effect: {fileID: 0}
+  effectDuration: 0.5
 --- !u!114 &4138494508289938987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +135,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportIndex: 0
+  teleportEffectPrefab: {fileID: 5607819269926399345, guid: 45e0f06c750176947862c10346226439, type: 3}

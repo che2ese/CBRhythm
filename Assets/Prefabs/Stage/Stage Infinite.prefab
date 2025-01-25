@@ -76,7 +76,9 @@ MonoBehaviour:
   telePortPlate: {fileID: 1518449810206894555, guid: b1dd21e6982fb4d7694a2fd716ef91a2, type: 3}
   telePortPlateIndices:
     indices: 
+  teleportTileTransforms: []
   plates: []
+  generateOnlyBreakPlates: 1
 --- !u!1001 &2908976023127970219
 PrefabInstance:
   m_ObjectHideFlags: 0

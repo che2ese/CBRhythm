@@ -54,6 +54,8 @@ public class Stage : MonoBehaviour
         Vector3.forward // z축 방향 (0, 0, 1)
     };
 
+    [Header("Special Conditions")]
+    public bool generateOnlyBreakPlates = false; // 모든 타일을 Break Plate로만 생성할지 여부
     void Awake()
     {
         // plates 배열 초기화: 생성될 타일 개수만큼 배열 크기 설정
@@ -109,6 +111,13 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < numberOfTiles; i++)
         {
+            // Break Plate만 생성하는 조건
+            if (generateOnlyBreakPlates)
+            {
+                GenerateBreakPlate(i);
+                continue;
+            }
+
             if (i == numberOfTiles - 1)
             {
                 GenerateGoalTile(i);

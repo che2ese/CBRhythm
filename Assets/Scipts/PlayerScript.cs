@@ -167,7 +167,7 @@ public class PlayerScript : MonoBehaviour
     }
     IEnumerator EndTrail()
     {
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(0.1f);
         ct.isTrailing = false;
     }
 
