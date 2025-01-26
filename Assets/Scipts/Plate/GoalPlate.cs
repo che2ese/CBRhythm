@@ -26,6 +26,11 @@ public class GoalPlate : MonoBehaviour
         bonus = 0;
     }
 
+    public void Initialized()
+    {
+        bonus = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

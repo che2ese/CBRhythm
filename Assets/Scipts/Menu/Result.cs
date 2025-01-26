@@ -74,7 +74,8 @@ public class Result : MonoBehaviour
 
     public void BtnMainMenu()
     {
-        goUI.SetActive(false);
+        if(goUI.activeSelf)
+            goUI.SetActive(false);
         GameManager.instance.MainMenu();
         sm.ResetCombo();
     }

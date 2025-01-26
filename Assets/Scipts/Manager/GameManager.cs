@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     Result rs;
     CameraController cc;
     UIManager um;
+    GoalPlate gp;
 
     [SerializeField]
     CenterFrame theMusic = null;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         rs = FindAnyObjectByType<Result>();
         cc = FindAnyObjectByType<CameraController>();
         um = FindAnyObjectByType<UIManager>();
+        gp = FindAnyObjectByType<GoalPlate>();
     }
 
     public void GameStart(int p_songNum, int p_bpm)
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
         ps.Initialized();
         cc.Initialized();
         um.Initialized();
+        gp.Initialized();
         rs.SetCurrentSong(p_songNum);
 
         if (p_songNum == 10)

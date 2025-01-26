@@ -7560,7 +7560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1216638924
@@ -11313,19 +11313,19 @@ MonoBehaviour:
     bpm: 120
     sprite: {fileID: 21300000, guid: fa6f026564881004e96dbe8f8adbdc49, type: 3}
   - level: Easy
-    bpm: 120
+    bpm: 130
     sprite: {fileID: 21300000, guid: 32e2e184012c9be46a4b28e45c04a78e, type: 3}
   - level: Easy
-    bpm: 110
+    bpm: 120
     sprite: {fileID: 21300000, guid: be98ba8dc7c79ee42862dfde3ac065c4, type: 3}
   - level: Normal
-    bpm: 120
+    bpm: 140
     sprite: {fileID: 21300000, guid: 3bdb5aa3db4096941b9a3f96b234cd3d, type: 3}
   - level: Normal
-    bpm: 120
+    bpm: 140
     sprite: {fileID: 21300000, guid: 54a1327d291d5f14fa446eb53e079e15, type: 3}
   - level: Normal
-    bpm: 110
+    bpm: 120
     sprite: {fileID: 21300000, guid: 3b831db8b3764114ba323b6d0825c8e3, type: 3}
   - level: Hard
     bpm: 140
@@ -11340,7 +11340,7 @@ MonoBehaviour:
     bpm: 150
     sprite: {fileID: 21300000, guid: 5e3fc7d114734a740b4e1e5d04411bed, type: 3}
   - level: Infinite
-    bpm: 130
+    bpm: 140
     sprite: {fileID: 21300000, guid: 94c94b52dc4145a45a2da9708e473f6b, type: 3}
   txtLevel: {fileID: 2069749805}
   txtSongScore: {fileID: 2142080606}

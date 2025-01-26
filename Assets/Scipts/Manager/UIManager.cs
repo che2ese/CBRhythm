@@ -14,6 +14,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject note = null;
 
+    NoteManager nm;
+    ScoreManager sm;
+
+    private void Awake()
+    {
+        nm = FindAnyObjectByType<NoteManager>();
+        sm = FindAnyObjectByType<ScoreManager>();
+    }
+
     private void Start()
     {
         settingUI.SetActive(false);
@@ -39,18 +48,18 @@ public class UIManager : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("Clap");
         gameSettingUI.SetActive(true);
-        note.SetActive(false);
     }
 
     public void CloseGameSet()
     {
         AudioManager.instance.PlaySFX("Clap");
         gameSettingUI.SetActive(false);
-        note.SetActive(true);
     }
     public void MainMenu()
     {
-        // 씬 0 재실행
-        SceneManager.LoadScene(0);
+        FindAnyObjectByType<CenterFrame>().ResetMusic();
+        GameManager.instance.MainMenu();
+        sm.ResetCombo();
+        nm.RemoveNote();
     }
 }
